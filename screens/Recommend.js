@@ -1,10 +1,10 @@
 import React from 'react';
 import { StyleSheet, View, Text } from 'react-native';
 
-export default function Shop() {
+export default function Recommend() {
   return (
     <View style={styles.container}>
-      <Text>shop</Text>
+      <Text>recommend</Text>
     </View>
   );
 }

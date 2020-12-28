@@ -1,10 +1,10 @@
 import React from 'react';
 import { StyleSheet, View, Text } from 'react-native';
 
-export default function MyHolly() {
+export default function Category() {
   return (
     <View style={styles.container}>
-      <Text>MyHolly</Text>
+      <Text>Category</Text>
     </View>
   );
 }

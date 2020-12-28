@@ -1,10 +1,14 @@
 import React from 'react';
-import { StyleSheet, View, Text } from 'react-native';
+import { StyleSheet, View, Text, Button } from 'react-native';
 
-export default function App() {
+export default function App({ navigation, route }) {
+  const goToProductDetail = (e) => {
+    navigation.navigate('ProductDetail');
+  };
   return (
     <View style={styles.container}>
       <Text>Home</Text>
+      <Button onPress={goToProductDetail} title='제품상세'></Button>
     </View>
   );
 }

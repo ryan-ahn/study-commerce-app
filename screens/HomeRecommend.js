@@ -8,7 +8,7 @@ export default function HomeRecommend({ navigation, route }) {
   return (
     <View style={styles.container}>
       <Text>best</Text>
-      <Button onPress={goToProductDetail} title='제품상세'></Button>
+      <Button onPress={goToProductDetail} title='111'></Button>
     </View>
   );
 }

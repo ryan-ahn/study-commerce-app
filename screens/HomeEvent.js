@@ -1,5 +1,6 @@
 import React from 'react';
 import { StyleSheet, View, Text, Button } from 'react-native';
+import ProductDetail from '../screens/ProductDetail';
 
 export default function HomeEvent({ navigation, route }) {
   const goToProductDetail = (e) => {
@@ -7,7 +8,7 @@ export default function HomeEvent({ navigation, route }) {
   };
   return (
     <View style={styles.container}>
-      <Text>best</Text>
+      <Text>event</Text>
       <Button onPress={goToProductDetail} title='제품상세'></Button>
     </View>
   );

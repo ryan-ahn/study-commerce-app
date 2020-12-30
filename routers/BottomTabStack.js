@@ -4,12 +4,12 @@ import AntdIcon from 'react-native-vector-icons/AntDesign';
 import FeatherIcon from 'react-native-vector-icons/Feather';
 import IoniconsIcon from 'react-native-vector-icons/Ionicons';
 import {
-  HomeStackScreen,
   RecommendStackScreen,
   CategoryStackScreen,
   SearchStackScreen,
   MyHollyStackScreen,
 } from './StackNavigator';
+import Home from '../screens/Home';
 
 const TabStack = createBottomTabNavigator();
 
@@ -26,7 +26,7 @@ export default function BottomNavigation() {
       }}>
       <TabStack.Screen
         name='홈'
-        component={HomeStackScreen}
+        component={Home}
         options={{
           tabBarIcon: ({ focused }) =>
             focused ? (

@@ -1,28 +1,34 @@
 import React from 'react';
-import { StyleSheet, View, Text, Button } from 'react-native';
+import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
+import HomeRecommend from '../screens/HomeRecommend';
+import HomeNewProduct from '../screens/HomeNewProduct';
+import HomeBestProduct from '../screens/HomeBestProduct';
+import HomeShopping from '../screens/HomeShopping';
+import HomeEvent from '../screens/HomeEvent';
+import Header from '../components/Header';
 
-export default function Home({ navigation, route }) {
-  const goToProductDetail = (e) => {
-    navigation.navigate('ProductDetail');
-  };
+const MainTabStack = createMaterialTopTabNavigator();
+
+export default function Home() {
   return (
-    <View style={styles.container}>
-      <View style={styles.menu}></View>
-      <Text>Home</Text>
-      <Button onPress={goToProductDetail} title='제품상세'></Button>
-    </View>
+    <>
+      <Header />
+      <MainTabStack.Navigator
+        tabBarOptions={{
+          activeTintColor: '#5f0180',
+          inactiveTintColor: '#555555',
+          pressColor: '#5f0180',
+          indicatorStyle: {
+            borderBottomWidth: 2,
+            borderBottomColor: '#5f0180',
+          },
+        }}>
+        <MainTabStack.Screen name='컬리추천' component={HomeRecommend} />
+        <MainTabStack.Screen name='신상품' component={HomeNewProduct} />
+        <MainTabStack.Screen name='베스트' component={HomeBestProduct} />
+        <MainTabStack.Screen name='알뜰쇼핑' component={HomeShopping} />
+        <MainTabStack.Screen name='이벤트' component={HomeEvent} />
+      </MainTabStack.Navigator>
+    </>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  menu: {
-    backgroundColor: '#111111',
-    height: 150,
-    width: '100%',
-  },
-});

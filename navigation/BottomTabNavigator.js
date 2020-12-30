@@ -3,30 +3,29 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import AntdIcon from 'react-native-vector-icons/AntDesign';
 import FeatherIcon from 'react-native-vector-icons/Feather';
 import IoniconsIcon from 'react-native-vector-icons/Ionicons';
-import {
-  RecommendStackScreen,
-  CategoryStackScreen,
-  SearchStackScreen,
-  MyHollyStackScreen,
-} from './StackNavigator';
-import Home from '../screens/Home';
+import HomeTabNavigator from './HomeTabNavigator';
+import Recommend from '../screens/Recommend';
+import Category from '../screens/Category';
+import Search from '../screens/Search';
+import MyHolly from '../screens/MyHolly';
+import { Theme } from '../styles/Theme';
 
-const TabStack = createBottomTabNavigator();
+const Tab = createBottomTabNavigator();
 
-export default function BottomNavigation() {
+export default BottomTabNavigation = () => {
   return (
-    <TabStack.Navigator
+    <Tab.Navigator
       initialRouteName={'홈'}
       tabBarOptions={{
-        activeTintColor: '#5f0180',
+        activeTintColor: Theme.colors.mainColor,
         style: {
-          backgroundColor: '#fff',
+          backgroundColor: Theme.colors.white,
           paddingBottom: 25,
         },
       }}>
-      <TabStack.Screen
+      <Tab.Screen
         name='홈'
-        component={Home}
+        component={HomeTabNavigator}
         options={{
           tabBarIcon: ({ focused }) =>
             focused ? (
@@ -36,9 +35,9 @@ export default function BottomNavigation() {
             ),
         }}
       />
-      <TabStack.Screen
+      <Tab.Screen
         name='추천'
-        component={RecommendStackScreen}
+        component={Recommend}
         options={{
           tabBarIcon: ({ focused }) =>
             focused ? (
@@ -48,9 +47,9 @@ export default function BottomNavigation() {
             ),
         }}
       />
-      <TabStack.Screen
+      <Tab.Screen
         name='카테고리'
-        component={CategoryStackScreen}
+        component={Category}
         options={{
           tabBarIcon: ({ focused }) =>
             focused ? (
@@ -60,9 +59,9 @@ export default function BottomNavigation() {
             ),
         }}
       />
-      <TabStack.Screen
+      <Tab.Screen
         name='검색'
-        component={SearchStackScreen}
+        component={Search}
         options={{
           tabBarIcon: ({ focused }) =>
             focused ? (
@@ -72,9 +71,9 @@ export default function BottomNavigation() {
             ),
         }}
       />
-      <TabStack.Screen
+      <Tab.Screen
         name='마이홀리'
-        component={MyHollyStackScreen}
+        component={MyHolly}
         options={{
           tabBarIcon: ({ focused }) =>
             focused ? (
@@ -88,6 +87,6 @@ export default function BottomNavigation() {
             ),
         }}
       />
-    </TabStack.Navigator>
+    </Tab.Navigator>
   );
-}
+};

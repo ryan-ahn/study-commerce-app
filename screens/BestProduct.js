@@ -1,22 +1,24 @@
 import React from 'react';
 import { StyleSheet, View, Text, Button } from 'react-native';
 
-export default function HomeShoppoig({ navigation, route }) {
+export default BestProduct = ({ navigation }) => {
   const goToProductDetail = (e) => {
-    navigation.navigate('ProductDetail');
+    navigation.navigate('productDetail');
   };
   return (
     <View style={styles.container}>
+      <View>
+        <Text>12333</Text>
+      </View>
       <Text>best</Text>
-      <Button onPress={goToProductDetail} title='제품상세'></Button>
+      <Button title='제품상세로가기' onPress={goToProductDetail} />
     </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
+    margin: 7,
   },
 });

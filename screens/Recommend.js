@@ -8,7 +8,10 @@ export default function Recommend({ navigation }) {
   return (
     <View style={styles.container}>
       <Text>recommend</Text>
-      <Button title='제품상세로가기' onPress={goToProductDetail} />
+      <Button
+        title='제품상세로가기'
+        onPress={() => navigation.navigate.setOptions({ title: 'aa' })}
+      />
     </View>
   );
 }

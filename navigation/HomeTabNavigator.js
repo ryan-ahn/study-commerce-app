@@ -5,7 +5,7 @@ import NewProduct from '../screens/NewProduct';
 import BestProduct from '../screens/BestProduct';
 import Shopping from '../screens/Shopping';
 import Event from '../screens/Event';
-import Header from '../components/Header';
+import { Theme } from '../styles/Theme';
 
 const MainTabStack = createMaterialTopTabNavigator();
 
@@ -14,12 +14,16 @@ export default function HomeTabNavigator() {
     <>
       <MainTabStack.Navigator
         tabBarOptions={{
-          activeTintColor: '#5f0180',
-          inactiveTintColor: '#555555',
-          pressColor: '#5f0180',
+          activeTintColor: Theme.colors.mainColor,
+          inactiveTintColor: Theme.colors.grayColor,
+          pressColor: Theme.colors.mainColor,
           indicatorStyle: {
             borderBottomWidth: 2,
-            borderBottomColor: '#5f0180',
+            borderBottomColor: Theme.colors.mainColor,
+          },
+          labelStyle: {
+            fontSize: 13,
+            fontWeight: '600',
           },
         }}>
         <MainTabStack.Screen name='컬리추천' component={HomeRecommend} />

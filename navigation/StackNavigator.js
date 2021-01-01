@@ -1,12 +1,15 @@
 import React from 'react';
-import { StyleSheet, View, Image } from 'react-native';
+import { View, Image } from 'react-native';
 import { createStackNavigator } from '@react-navigation/stack';
 import BottomTabNavigation from './BottomTabNavigator';
+import ProductDetail from '../screens/ProductDetail';
+import styled from 'styled-components/native';
 import { Theme } from '../styles/Theme';
+import { Mixin } from '../styles/Mixin';
 
 const Stack = createStackNavigator();
 
-export default StackNavigator = () => {
+export default StackNavigator = (props) => {
   return (
     <Stack.Navigator
       screenOptions={{
@@ -23,30 +26,28 @@ export default StackNavigator = () => {
         component={BottomTabNavigation}
         options={{
           title: (
-            <View style={styles.headerContainer}>
-              <Image
-                style={styles.logoIcon}
-                source={require('../images/logo_text.png')}
-              />
-            </View>
+            <ImageContainer>
+              <StyledImage source={require('../images/logo_text.png')} />
+            </ImageContainer>
           ),
+        }}
+      />
+      <Stack.Screen
+        name='productDetail'
+        component={ProductDetail}
+        options={{
+          title: 'hi',
         }}
       />
     </Stack.Navigator>
   );
 };
 
-const styles = StyleSheet.create({
-  cartIcon: {
-    marginRight: 12,
-  },
-  headerContainer: {
-    alignItems: 'center',
-    height: 44,
-    backgroundColor: '#5f0180',
-  },
-  logoIcon: {
-    height: 36,
-    width: 50,
-  },
-});
+const ImageContainer = styled(View)`
+  ${Mixin.flexSet('center', 'center', 'column')};
+`;
+
+const StyledImage = styled(Image)`
+  width: 50px;
+  height: 36px;
+`;

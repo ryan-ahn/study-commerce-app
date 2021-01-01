@@ -4,7 +4,7 @@ import ProductDetail from '../screens/ProductDetail';
 
 export default Event = ({ navigation, route }) => {
   const goToProductDetail = (e) => {
-    navigation.navigate('ProductDetail');
+    navigation.navigate('productDetail');
   };
   return (
     <View style={styles.container}>

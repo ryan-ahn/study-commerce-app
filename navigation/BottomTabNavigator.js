@@ -21,6 +21,12 @@ export default BottomTabNavigation = () => {
         style: {
           backgroundColor: Theme.colors.white,
           paddingBottom: 25,
+          fontWeight: 'bold',
+        },
+        labelStyle: {
+          fontSize: 10,
+          fontWeight: '600',
+          color: Theme.colors.grayColor,
         },
       }}>
       <Tab.Screen
@@ -29,9 +35,17 @@ export default BottomTabNavigation = () => {
         options={{
           tabBarIcon: ({ focused }) =>
             focused ? (
-              <IoniconsIcon name='home-sharp' size={25} color='#5f0180' />
+              <IoniconsIcon
+                name='home-sharp'
+                size={25}
+                color={Theme.colors.mainColor}
+              />
             ) : (
-              <IoniconsIcon name='home-outline' size={25} color='#4d4d4d' />
+              <IoniconsIcon
+                name='home-outline'
+                size={25}
+                color={Theme.colors.grayColor}
+              />
             ),
         }}
       />
@@ -41,9 +55,9 @@ export default BottomTabNavigation = () => {
         options={{
           tabBarIcon: ({ focused }) =>
             focused ? (
-              <AntdIcon name='star' size={25} color='#5f0180' />
+              <AntdIcon name='star' size={25} color={Theme.colors.mainColor} />
             ) : (
-              <AntdIcon name='staro' size={25} color='#4d4d4d' />
+              <AntdIcon name='staro' size={25} color={Theme.colors.grayColor} />
             ),
         }}
       />
@@ -53,9 +67,17 @@ export default BottomTabNavigation = () => {
         options={{
           tabBarIcon: ({ focused }) =>
             focused ? (
-              <FeatherIcon name='menu' size={25} color='#5f0180' />
+              <FeatherIcon
+                name='menu'
+                size={25}
+                color={Theme.colors.mainColor}
+              />
             ) : (
-              <FeatherIcon name='menu' size={25} color='#4d4d4d' />
+              <FeatherIcon
+                name='menu'
+                size={25}
+                color={Theme.colors.grayColor}
+              />
             ),
         }}
       />
@@ -65,9 +87,17 @@ export default BottomTabNavigation = () => {
         options={{
           tabBarIcon: ({ focused }) =>
             focused ? (
-              <IoniconsIcon name='ios-search' size={27} color='#5f0180' />
+              <IoniconsIcon
+                name='ios-search'
+                size={27}
+                color={Theme.colors.mainColor}
+              />
             ) : (
-              <AntdIcon name='search1' size={24} color='#4d4d4d' />
+              <AntdIcon
+                name='search1'
+                size={24}
+                color={Theme.colors.grayColor}
+              />
             ),
         }}
       />
@@ -77,12 +107,16 @@ export default BottomTabNavigation = () => {
         options={{
           tabBarIcon: ({ focused }) =>
             focused ? (
-              <IoniconsIcon name='ios-people-sharp' size={25} color='#5f0180' />
+              <IoniconsIcon
+                name='ios-people-sharp'
+                size={25}
+                color={Theme.colors.mainColor}
+              />
             ) : (
               <IoniconsIcon
                 name='ios-people-outline'
                 size={25}
-                color='#4d4d4d'
+                color={Theme.colors.grayColor}
               />
             ),
         }}

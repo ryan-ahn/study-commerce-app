@@ -3,7 +3,7 @@ import { StyleSheet, View, Text, Button } from 'react-native';
 
 export default function Shoppoig({ navigation, route }) {
   const goToProductDetail = (e) => {
-    navigation.navigate('ProductDetail');
+    navigation.navigate('productDetail');
   };
   return (
     <View style={styles.container}>

@@ -17,11 +17,9 @@ export default BottomTabNavigation = () => {
     <Tab.Navigator
       initialRouteName={'홈'}
       tabBarOptions={{
-        activeTintColor: Theme.colors.mainColor,
         style: {
-          backgroundColor: Theme.colors.white,
           paddingBottom: 25,
-          fontWeight: 'bold',
+          borderTopColor: '#d8d8d8',
         },
         labelStyle: {
           fontSize: 10,

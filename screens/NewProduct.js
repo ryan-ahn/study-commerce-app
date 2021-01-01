@@ -1,5 +1,6 @@
 import React from 'react';
-import { StyleSheet, View, Text, Button } from 'react-native';
+import { StyleSheet, ScrollView, View, Text, Button } from 'react-native';
+import { Theme } from '../styles/Theme';
 
 export default function HomeNewProduct({ navigation }) {
   const goToProductDetail = (e) => {
@@ -7,11 +8,11 @@ export default function HomeNewProduct({ navigation }) {
   };
   return (
     <View style={styles.container}>
-      <View>
+      <ScrollView endFillColor={Theme.colors.white}>
         <Text>zz</Text>
-      </View>
-      <Text>best</Text>
-      <Button title='제품상세로가기' onPress={goToProductDetail} />
+        <Text>best</Text>
+        <Button title='제품상세로가기' onPress={goToProductDetail} />
+      </ScrollView>
     </View>
   );
 }

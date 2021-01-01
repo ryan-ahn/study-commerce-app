@@ -18,7 +18,7 @@ export default function HomeTabNavigator() {
           inactiveTintColor: Theme.colors.grayColor,
           pressColor: Theme.colors.mainColor,
           indicatorStyle: {
-            borderBottomWidth: 2,
+            borderBottomWidth: 3,
             borderBottomColor: Theme.colors.mainColor,
           },
           labelStyle: {

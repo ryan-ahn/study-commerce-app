@@ -1,140 +1,93 @@
 import React, { useState, useEffect } from 'react';
-import {
-  View,
-  Image,
-  Text,
-  SafeAreaView,
-  FlatList,
-  ActivityIndicator,
-} from 'react-native';
-import { ScrollView } from 'react-native-gesture-handler';
-import styled from 'styled-components/native';
-import Swiper from 'react-native-swiper';
+import { View, ScrollView } from 'react-native';
+import HomeFlatList from '../components/HomeFlatList';
+import HomeSwiper from '../components/HomeSwiper';
+import styled from 'styled-components';
 import { Mixin } from '../styles/Mixin';
 
-const LIMIT = 3;
+const LIMIT = 4;
 
 export default HomeRecommend = () => {
-  const [data, setData] = useState([]);
+  const [productData, setProductData] = useState([]);
+  const [slideData, setSlideData] = useState([]);
   const [offset, setOffset] = useState(0);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    getData();
+    getProductData();
+    getSwiperData();
   }, []);
 
-  const getData = () => {
+  const getProductData = () => {
     if (loading) {
       return;
     }
     setLoading(true);
-    fetch('http://jsonplaceholder.typicode.com/photos')
+    fetch(
+      'https://gist.githubusercontent.com/Xednicoder/46154f43cac6427be56955d7cdd0a6ab/raw/3a66a449e11dbfa3771a8a94896e6ee82436f956/productList.json',
+      { method: 'GET' }
+    )
       .then((res) => res.json())
       .then((result) => {
-        setData([...data, ...result.slice(offset, offset + LIMIT)]);
+        setProductData([
+          ...productData,
+          ...result.slice(offset, offset + LIMIT),
+        ]);
         setOffset(offset + LIMIT);
-        setLoading(false);
+      });
+    setLoading(false);
+  };
+
+  const getSwiperData = () => {
+    fetch(
+      'https://gist.githubusercontent.com/Xednicoder/8bada8b057954b4c9b8b127c17328fd7/raw/c4b9e38e71615169ba70c07687172f73221d0ae8/slideUrl.json',
+      { method: 'GET' }
+    )
+      .then((res) => res.json())
+      .then((result) => {
+        setSlideData(result);
       });
   };
 
   const onEndReached = () => {
-    getData();
+    getProductData();
   };
 
-  const renderItem = ({ item }) => {
-    return (
-      <View>
-        <FlatImage source={{ uri: item.url }} />
-        <Text>{item.title}</Text>
-      </View>
-    );
-  };
-
-  const renderPagination = (index, total) => {
-    return (
-      <StyledPagination>
-        <Text style={{ color: 'grey' }}>
-          <StyledPaginationText>{index + 1}</StyledPaginationText>/{total}
-        </Text>
-      </StyledPagination>
-    );
+  const goToProductDetail = (e) => {
+    navigation.navigate('productDetail');
   };
 
   return (
     <ViewContainer>
-      <ScrollView>
-        <Swiper
-          renderPagination={renderPagination}
-          autoplay={true}
-          autoplayTimeout={3}
-          loop={false}
-          showsButtons={false}>
-          <SlideContainer>
-            <SlideImage source={require('../images/banner_market1.png')} />
-          </SlideContainer>
-          <SlideContainer>
-            <SlideImage source={require('../images/banner_market3.png')} />
-          </SlideContainer>
-          <SlideContainer>
-            <SlideImage source={require('../images/banner_market2.png')} />
-          </SlideContainer>
-        </Swiper>
-      </ScrollView>
-      <StyledSafeAreaView>
-        <Text>헤더</Text>
-        <FlatList
-          horizontal
-          keyExtractor={(item) => String(item.id)}
-          data={data}
-          renderItem={renderItem}
+      <StyledScrollView
+        showsVerticalScrollIndicator={false}
+        showsHorizontalScrollIndicator={false}>
+        <HomeSwiper data={slideData} />
+        <HomeFlatList
+          title={'태현의 추천 상품'}
+          data={productData.filter((product) => product.recommend === true)}
+          offset={offset}
+          loading={loading}
           onEndReached={onEndReached}
-          onEndReachedThreshold={0.9}
-          ListFooterComponent={
-            loading ? <ActivityIndicator size='large' /> : null
-          }
         />
-      </StyledSafeAreaView>
+        <HomeFlatList
+          title={'이달의 신규 상품'}
+          data={productData.filter((product) => product.newProduct === true)}
+          offset={offset}
+          loading={loading}
+          onEndReached={onEndReached}
+        />
+      </StyledScrollView>
     </ViewContainer>
   );
 };
 
-const ViewContainer = styled.View`
+const ViewContainer = styled(View)`
   ${Mixin.flexSet('center', 'center', 'column')};
   width: 390px;
-`;
-const SlideContainer = styled(View)`
-  width: 100%;
-  height: 390px;
-`;
-
-const SlideImage = styled(Image)`
-  justify-content: center;
-  width: 100%;
   height: 100%;
 `;
 
-const StyledPagination = styled(View)`
-  ${Mixin.flexSet('center', 'center', 'column')};
-  position: absolute;
-  top: 360px;
-  right: 20px;
-  width: 40px;
-  background-color: black;
-  border-radius: 10px;
-  opacity: 0.6;
-`;
-
-const StyledPaginationText = styled(Text)`
-  color: white;
-  font-size: 14px;
-`;
-
-const StyledSafeAreaView = styled(SafeAreaView)`
-  height: 500px;
-  ${Mixin.flexSet('center', 'center', 'column')};
-`;
-
-const FlatImage = styled(Image)`
-  width: 50px;
-  height: 50px;
+const StyledScrollView = styled(ScrollView)`
+  background-color: #f9f9f9;
 `;

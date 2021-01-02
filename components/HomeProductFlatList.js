@@ -44,13 +44,13 @@ export default HomeFlatList = (props) => {
 
 const StyledSafeAreaView = styled(SafeAreaView)`
   width: 100%;
-  height: 255px;
+  height: 320px;
 `;
 
 const HeaderView = styled(View)`
   ${Mixin.flexSet('flex-end', 'flex-start', 'column')};
-  width: 390px;
-  height: 50px;
+  width: 100%;
+  height: 60px;
   margin-left: 8px;
   margin-bottom: 10px;
 `;
@@ -67,7 +67,7 @@ const FlatContainer = styled(View)`
 
 const FlatImage = styled(Image)`
   width: 150px;
-  height: 150px;
+  height: 170px;
 `;
 
 const FlatText = styled(Text)`

@@ -1,21 +1,26 @@
 import React, { useState, useEffect } from 'react';
-import { View, ScrollView } from 'react-native';
-import HomeFlatList from '../components/HomeFlatList';
+import { View, ScrollView, Button } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import HomeEventFlatList from '../components/HomeEventFlatList';
+import HomeProductFlatList from '../components/HomeProductFlatList';
 import HomeSwiper from '../components/HomeSwiper';
 import styled from 'styled-components';
 import { Mixin } from '../styles/Mixin';
+import Footer from '../components/Footer';
 
 const LIMIT = 4;
 
 export default HomeRecommend = () => {
   const [productData, setProductData] = useState([]);
   const [slideData, setSlideData] = useState([]);
+  const [eventData, setEventData] = useState([]);
   const [offset, setOffset] = useState(0);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     getProductData();
     getSwiperData();
+    getEventData();
   }, []);
 
   const getProductData = () => {
@@ -49,6 +54,26 @@ export default HomeRecommend = () => {
       });
   };
 
+  const getEventData = () => {
+    fetch(
+      'https://gist.githubusercontent.com/Xednicoder/58675c056b96fda86286e35604070d04/raw/b70fe7fa06112b74062a5989546887d2342e03b6/event.json',
+      { method: 'GET' }
+    )
+      .then((res) => res.json())
+      .then((result) => {
+        setEventData(result);
+      });
+  };
+
+  const getUserData = async () => {
+    try {
+      const userName = await AsyncStorage.getItem('USER_NAME');
+      if (userName !== null) {
+        console.log(userName);
+      }
+    } catch (e) {}
+  };
+
   const onEndReached = () => {
     getProductData();
   };
@@ -63,20 +88,22 @@ export default HomeRecommend = () => {
         showsVerticalScrollIndicator={false}
         showsHorizontalScrollIndicator={false}>
         <HomeSwiper data={slideData} />
-        <HomeFlatList
+        <HomeProductFlatList
           title={'태현의 추천 상품'}
           data={productData.filter((product) => product.recommend === true)}
           offset={offset}
           loading={loading}
           onEndReached={onEndReached}
         />
-        <HomeFlatList
+        <HomeEventFlatList title={'이벤트 소식'} data={eventData} />
+        <HomeProductFlatList
           title={'이달의 신규 상품'}
           data={productData.filter((product) => product.newProduct === true)}
           offset={offset}
           loading={loading}
           onEndReached={onEndReached}
         />
+        <Footer />
       </StyledScrollView>
     </ViewContainer>
   );

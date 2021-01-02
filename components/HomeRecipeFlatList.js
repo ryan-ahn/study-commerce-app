@@ -3,7 +3,6 @@ import {
   View,
   Image,
   Text,
-  TouchableOpacity,
   SafeAreaView,
   FlatList,
   ActivityIndicator,
@@ -12,10 +11,10 @@ import styled from 'styled-components';
 import { Mixin } from '../styles/Mixin';
 import { Theme } from '../styles/Theme';
 
-export default HomeProductFlatList = (props) => {
+export default HomeRecipeFlatList = (props) => {
   const renderItem = ({ item }) => {
     return (
-      <FlatContainer onPress={goToDetail(item.id)}>
+      <FlatContainer>
         <FlatImage source={{ uri: item.image }} />
         <FlatText>{item.name}</FlatText>
       </FlatContainer>
@@ -45,13 +44,13 @@ export default HomeProductFlatList = (props) => {
 
 const StyledSafeAreaView = styled(SafeAreaView)`
   width: 100%;
-  height: 320px;
+  height: 310px;
 `;
 
 const HeaderView = styled(View)`
   ${Mixin.flexSet('flex-end', 'flex-start', 'column')};
   width: 100%;
-  height: 60px;
+  height: 50px;
   margin-left: 8px;
   margin-bottom: 10px;
 `;
@@ -62,18 +61,19 @@ const HeaderText = styled(Text)`
   color: ${Theme.fontColors.headerColor};
 `;
 
-const FlatContainer = styled(TouchableOpacity)`
+const FlatContainer = styled(View)`
+  ${Mixin.flexSet('flex-start', 'center', 'column')};
   margin-left: 8px;
 `;
 
 const FlatImage = styled(Image)`
-  width: 150px;
-  height: 170px;
+  width: 250px;
+  height: 150px;
 `;
 
 const FlatText = styled(Text)`
   width: 150px;
-  margin-top: 5px;
+  margin-top: 8px;
   color: ${Theme.fontColors.mainColor};
   font-size: 13px;
 `;

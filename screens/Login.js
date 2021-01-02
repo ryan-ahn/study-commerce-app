@@ -5,7 +5,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import styled from 'styled-components';
 
 export default function Login({ navigation }) {
-  async function signInWithGoogleAsync() {
+  const signInWithGoogleAsync = async () => {
     try {
       const result = await Google.logInAsync({
         iosClientId:
@@ -21,7 +21,7 @@ export default function Login({ navigation }) {
         return { cancelled: true };
       }
     } catch (e) {}
-  }
+  };
 
   const getUserData = async () => {
     try {
@@ -33,14 +33,10 @@ export default function Login({ navigation }) {
     } catch (e) {}
   };
 
-  const socialLogin = () => {
-    signInWithGoogleAsync();
-  };
-
   return (
     <Container>
       <Wrapper>
-        <Button title='hihi' onPress={socialLogin} />
+        <Button title='hihi' onPress={signInWithGoogleAsync} />
         <Button title='get' onPress={getUserData} />
       </Wrapper>
     </Container>

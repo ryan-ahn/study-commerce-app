@@ -31,7 +31,7 @@ export default function Footer() {
           제휴문의 : <Link>Xednicoder@github.com</Link>
         </BodyText>
         <BodyText>
-          팩스 : 070-9779-6777 | 이메일 :<Link>help@xedni.com</Link>
+          팩스 : 070-9779-6777 | 이메일 : <Link>help@xedni.com</Link>
         </BodyText>
       </BodyContainer>
       <BodyContainer>

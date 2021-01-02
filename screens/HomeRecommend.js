@@ -1,12 +1,14 @@
-import React, { useState, useEffect } from 'react';
-import { View, ScrollView, Button } from 'react-native';
+import React, { useState, useEffect, useRef } from 'react';
+import { View, ScrollView, Pressable, Text } from 'react-native';
+import AntDesign from 'react-native-vector-icons/AntDesign';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import HomeEventFlatList from '../components/HomeEventFlatList';
 import HomeProductFlatList from '../components/HomeProductFlatList';
+import HomeRecipeFlatList from '../components/HomeRecipeFlatList';
 import HomeSwiper from '../components/HomeSwiper';
+import Footer from '../components/Footer';
 import styled from 'styled-components';
 import { Mixin } from '../styles/Mixin';
-import Footer from '../components/Footer';
 
 const LIMIT = 4;
 
@@ -14,13 +16,18 @@ export default HomeRecommend = () => {
   const [productData, setProductData] = useState([]);
   const [slideData, setSlideData] = useState([]);
   const [eventData, setEventData] = useState([]);
+  const [recipeData, setRecipeData] = useState();
   const [offset, setOffset] = useState(0);
   const [loading, setLoading] = useState(false);
+  const [toggle, setToggle] = useState(false);
+  const scrollLocation = useRef();
 
   useEffect(() => {
     getProductData();
     getSwiperData();
     getEventData();
+    getUserData();
+    getRecipeData();
   }, []);
 
   const getProductData = () => {
@@ -54,6 +61,17 @@ export default HomeRecommend = () => {
       });
   };
 
+  const getRecipeData = () => {
+    fetch(
+      'https://gist.githubusercontent.com/Xednicoder/f166d981985808017c73e885ae01bef0/raw/17ccb09298588db4e3dfc2376a1b2a27f7cf06b0/recipe.json',
+      { method: 'GET' }
+    )
+      .then((res) => res.json())
+      .then((result) => {
+        setRecipeData(result);
+      });
+  };
+
   const getEventData = () => {
     fetch(
       'https://gist.githubusercontent.com/Xednicoder/58675c056b96fda86286e35604070d04/raw/b70fe7fa06112b74062a5989546887d2342e03b6/event.json',
@@ -69,7 +87,6 @@ export default HomeRecommend = () => {
     try {
       const userName = await AsyncStorage.getItem('USER_NAME');
       if (userName !== null) {
-        console.log(userName);
       }
     } catch (e) {}
   };
@@ -78,27 +95,57 @@ export default HomeRecommend = () => {
     getProductData();
   };
 
+  const onUpPage = () => {
+    scrollLocation.current.scrollTo({ y: 0 });
+  };
+
+  const showButton = (e) => {
+    if (e.nativeEvent.contentOffset.y - 0 > 170) {
+      setToggle(true);
+    } else {
+      setToggle(false);
+    }
+  };
+
   const goToProductDetail = (e) => {
-    navigation.navigate('productDetail');
+    console.log(navigation);
+    props.navigation.navigate('productDetail');
   };
 
   return (
     <ViewContainer>
       <StyledScrollView
+        ref={scrollLocation}
+        onScrollEndDrag={showButton}
+        stickyHeaderIndices={[0]}
         showsVerticalScrollIndicator={false}
         showsHorizontalScrollIndicator={false}>
+        <StickyView
+          style={{ position: 'absolute', opacity: toggle ? '1' : '0' }}>
+          <StickyButton style={{ position: 'sticky' }} onPress={onUpPage}>
+            <AntDesign name='arrowup' size={17} color={'#444444'} />
+          </StickyButton>
+        </StickyView>
         <HomeSwiper data={slideData} />
         <HomeProductFlatList
-          title={'태현의 추천 상품'}
+          title={'이 상품 어때요?'}
           data={productData.filter((product) => product.recommend === true)}
           offset={offset}
           loading={loading}
           onEndReached={onEndReached}
+          // goToDetail={goToProductDetail}
         />
         <HomeEventFlatList title={'이벤트 소식'} data={eventData} />
         <HomeProductFlatList
-          title={'이달의 신규 상품'}
+          title={'오늘의 신규 상품'}
           data={productData.filter((product) => product.newProduct === true)}
+          offset={offset}
+          loading={loading}
+          onEndReached={onEndReached}
+        />
+        <HomeRecipeFlatList
+          title={'홀리의 레시피'}
+          data={recipeData}
           offset={offset}
           loading={loading}
           onEndReached={onEndReached}
@@ -117,4 +164,18 @@ const ViewContainer = styled(View)`
 
 const StyledScrollView = styled(ScrollView)`
   background-color: #f9f9f9;
+`;
+
+const StickyView = styled(View)`
+  top: 570px;
+  left: 330px;
+`;
+
+const StickyButton = styled(Pressable)`
+  ${Mixin.flexSet('center', 'center', 'row')};
+  width: 40px;
+  height: 40px;
+  background-color: white;
+  border: 1px solid #d1d1d1;
+  border-radius: 50px;
 `;

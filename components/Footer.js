@@ -95,7 +95,7 @@ const TabText = styled(Text)`
 `;
 
 const BodyText = styled(Text)`
-  font-size: 11px;
+  font-size: 11.5px;
   color: ${Theme.fontColors.descriptionColor};
 `;
 

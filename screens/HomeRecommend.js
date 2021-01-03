@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { View, ScrollView, Pressable, Text } from 'react-native';
+import { View, ScrollView, Pressable } from 'react-native';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import HomeEventFlatList from '../components/HomeEventFlatList';
@@ -12,7 +12,7 @@ import { Mixin } from '../styles/Mixin';
 
 const LIMIT = 4;
 
-export default HomeRecommend = () => {
+export default HomeRecommend = ({ navigation }) => {
   const [productData, setProductData] = useState([]);
   const [slideData, setSlideData] = useState([]);
   const [eventData, setEventData] = useState([]);
@@ -36,7 +36,7 @@ export default HomeRecommend = () => {
     }
     setLoading(true);
     fetch(
-      'https://gist.githubusercontent.com/Xednicoder/46154f43cac6427be56955d7cdd0a6ab/raw/3a66a449e11dbfa3771a8a94896e6ee82436f956/productList.json',
+      'https://gist.githubusercontent.com/Xednicoder/46154f43cac6427be56955d7cdd0a6ab/raw/602ce75163c131b15e1669de3cfbc6c259dd48fe/productList.json',
       { method: 'GET' }
     )
       .then((res) => res.json())
@@ -100,16 +100,15 @@ export default HomeRecommend = () => {
   };
 
   const showButton = (e) => {
-    if (e.nativeEvent.contentOffset.y - 0 > 170) {
+    if (e.nativeEvent.contentOffset.y - 0 > 400) {
       setToggle(true);
     } else {
       setToggle(false);
     }
   };
 
-  const goToProductDetail = (e) => {
-    console.log(navigation);
-    props.navigation.navigate('productDetail');
+  const goToProductDetail = () => {
+    navigation.navigate('productDetail');
   };
 
   return (
@@ -133,7 +132,7 @@ export default HomeRecommend = () => {
           offset={offset}
           loading={loading}
           onEndReached={onEndReached}
-          // goToDetail={goToProductDetail}
+          goToDetail={goToProductDetail}
         />
         <HomeEventFlatList title={'이벤트 소식'} data={eventData} />
         <HomeProductFlatList
@@ -142,6 +141,7 @@ export default HomeRecommend = () => {
           offset={offset}
           loading={loading}
           onEndReached={onEndReached}
+          goToDetail={goToProductDetail}
         />
         <HomeRecipeFlatList
           title={'홀리의 레시피'}

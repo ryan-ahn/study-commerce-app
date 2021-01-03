@@ -10,7 +10,7 @@ import { Mixin } from '../styles/Mixin';
 
 const Stack = createStackNavigator();
 
-export default StackNavigator = (props) => {
+export default StackNavigator = () => {
   return (
     <Stack.Navigator
       screenOptions={{
@@ -38,6 +38,7 @@ export default StackNavigator = (props) => {
         component={ProductDetail}
         options={{
           title: '제품상세',
+          headerShown: false,
         }}
       />
       <Stack.Screen

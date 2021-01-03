@@ -5,6 +5,7 @@ export const Theme = {
     grayColor: '#555555',
     bodyColor: '#dbdbdb',
     containerColor: '#f1f1f1',
+    discountColor: '#ac6cc2',
     backColor: '#f9f9f9',
     tintColor: '#fff',
     white: '#fff',
@@ -14,5 +15,6 @@ export const Theme = {
     headerColor: '#111111',
     mainColor: '#222222',
     descriptionColor: '#666666',
+    discountColor: '#c9c9c9',
   },
 };

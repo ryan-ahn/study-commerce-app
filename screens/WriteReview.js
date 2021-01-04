@@ -1,5 +1,12 @@
 import React, { useState } from 'react';
-import { View, Image, Text, TextInput, TouchableOpacity } from 'react-native';
+import {
+  View,
+  Image,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  Alert,
+} from 'react-native';
 import Fontisto from 'react-native-vector-icons/Fontisto';
 import { connect } from 'react-redux';
 import * as ImagePicker from 'expo-image-picker';
@@ -11,14 +18,28 @@ import { Theme } from '../styles/Theme';
 const WriteReview = (props) => {
   const [title, setTitle] = useState('');
   const [bodyText, setBodyText] = useState('');
-  const [addImage, setAddImage] = useState('');
+  const [addImage, setAddImage] = useState([]);
 
-  console.log(title, bodyText);
   const goBack = () => {
     props.navigation.goBack();
   };
 
-  const addReview = () => {};
+  const addReview = () => {
+    if (!title) {
+      Alert.alert('타이틀을 입력하세요');
+    } else if (bodyText < 10) {
+      Alert.alert('내용을 10글자 이상 입력하세요');
+    } else if (!addImage.length) {
+      Alert.alert('이미지를 최소 1개 이상 추가하세요');
+    } else {
+      const reviewSet = [title, bodyText, addImage];
+      props.dispatch({
+        type: 'setDetailData',
+        payload: { productDetailData: reviewSet },
+      });
+      props.navigation.goBack();
+    }
+  };
 
   const pickImage = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
@@ -28,7 +49,9 @@ const WriteReview = (props) => {
       quality: 1,
     });
     if (!result.cancelled) {
-      setAddImage(result.uri);
+      const prevImage = [...addImage];
+      prevImage.push(result.uri);
+      setAddImage(prevImage);
     }
   };
 
@@ -37,9 +60,7 @@ const WriteReview = (props) => {
       <ProductReviewHeader goBack={goBack} />
       <ViewContainer>
         <ProductNameBox>
-          <ProductName>
-            {'구매 상품: ' + props.state.productDetailData.name}
-          </ProductName>
+          <ProductName>{props.state.productDetailData.name}</ProductName>
         </ProductNameBox>
         <Title>
           <StyledText>후기 쓰기</StyledText>
@@ -54,35 +75,46 @@ const WriteReview = (props) => {
             placeholder='자세한 후기는 다른 고객의 구매에 많은 도움이 되며, 일반식품의 효능이나 효과 등에 오해의 소지가 있는 내용을 작성 시 검토 후 비공개 조치될 수 있습니다. 반품/환불 문의는 1:1문의로 가능합니다.'
             multiline={true}
           />
-          <PostCount
-            style={{ color: bodyText.length > 10 ? '#666666' : '#5f0180' }}>
+          <CountCheck
+            style={{ color: bodyText.length >= 10 ? '#666666' : 'red' }}>
             {bodyText.length}자 / 최소 10자
-          </PostCount>
+          </CountCheck>
         </Body>
         <Photo>
           <TitlePhoto>
             <StyledText>사진 등록</StyledText>
-            <PostCount>{addImage ? 1 : 0}장 / 최대 8장</PostCount>
+            <CountCheck
+              style={{ color: addImage.length > 0 ? '#666666' : 'red' }}>
+              {addImage.length}장 / 최대 8장
+            </CountCheck>
           </TitlePhoto>
           <AddPhoto onPress={pickImage}>
-            {addImage ? (
-              <ImageBox source={{ uri: addImage }} />
-            ) : (
-              <IconBox>
-                <Fontisto name='plus-a' size={20} style={{ color: '#333' }} />
-              </IconBox>
-            )}
+            {addImage.map((image, index) => (
+              <ImageBox key={index} source={{ uri: image }} />
+            ))}
+            <IconBox>
+              <Fontisto name='plus-a' size={20} style={{ color: '#333' }} />
+            </IconBox>
           </AddPhoto>
           <Notice>
             구매한 상품이 아니거나 캡쳐 사진을 첨부할 경우, 통보없이 삭제 및
             적립 혜택이 취소됩니다.
           </Notice>
         </Photo>
-        <BtnWrapper
-          // disabled={title && bodyText.length >= 10 ? false : true}
+        <SubmitButton
+          style={{
+            backgroundColor:
+              title && bodyText >= 0 && addImage.length ? '#5f0180' : '#f1f1f1',
+          }}
           onPress={addReview}>
-          <Text>등록하기</Text>
-        </BtnWrapper>
+          <ButtonText
+            style={{
+              color:
+                title && bodyText >= 0 && addImage.length ? 'white' : '#b1b1b1',
+            }}>
+            등록하기
+          </ButtonText>
+        </SubmitButton>
       </ViewContainer>
     </>
   );
@@ -141,7 +173,7 @@ const InputBody = styled(TextInput)`
   font-size: 12px;
 `;
 
-const PostCount = styled(Text)`
+const CountCheck = styled(Text)`
   margin: 5px 0px;
   font-size: 12px;
   text-align: right;
@@ -156,8 +188,8 @@ const TitlePhoto = styled(View)`
 `;
 
 const AddPhoto = styled(TouchableOpacity)`
-  ${Mixin.flexSet('center', 'center', 'row')}
-  width: 64px;
+  ${Mixin.flexSet('flex-start', 'center', 'row')}
+  width: 390px;
   height: 64px;
   margin: 5px 0px;
 `;
@@ -165,20 +197,29 @@ const AddPhoto = styled(TouchableOpacity)`
 const ImageBox = styled(Image)`
   width: 64px;
   height: 64px;
+  margin-right: 5px;
   border-radius: 3px;
 `;
 
 const IconBox = styled(View)`
   ${Mixin.flexSet('center', 'center', 'row')}
-  width: 100%;
+  width: 64px;
   height: 100%;
   border: 0.5px solid ${Theme.colors.borderColor};
 `;
 const Notice = styled(Text)`
-  padding-top: 10px;
+  padding-top: 20px;
   font-size: 12px;
 `;
 
-const BtnWrapper = styled(View)`
-  margin-top: 30px;
+const SubmitButton = styled(TouchableOpacity)`
+  ${Mixin.flexSet('center', 'center', 'row')}
+  width: 100%;
+  height: 40px;
+  margin-top: 60px;
+  border-radius: 5px;
+`;
+
+const ButtonText = styled(Text)`
+  font-weight: 600;
 `;

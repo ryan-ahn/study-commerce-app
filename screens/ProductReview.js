@@ -56,14 +56,14 @@ const WriteButtonBox = styled.TouchableOpacity`
   margin-bottom: 20px;
   margin-top: 7px;
   background-color: #fff;
-  border: 1px solid #5f0080;
+  border: 1px ${Theme.colors.mainColor};
   border-radius: 4px;
 `;
 
 const ButtonText = styled.Text`
   font-weight: 600;
   font-size: 14px;
-  color: #5f0080;
+  color: ${Theme.colors.mainColor};
 `;
 
 const Writer = styled.Text`

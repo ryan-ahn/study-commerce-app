@@ -36,7 +36,7 @@ export default HomeRecommend = ({ navigation }) => {
     }
     setLoading(true);
     fetch(
-      'https://gist.githubusercontent.com/Xednicoder/46154f43cac6427be56955d7cdd0a6ab/raw/602ce75163c131b15e1669de3cfbc6c259dd48fe/productList.json',
+      'https://gist.githubusercontent.com/Xednicoder/46154f43cac6427be56955d7cdd0a6ab/raw/a07fe88180527fed8a50d557defe9eec96947996/productList.json',
       { method: 'GET' }
     )
       .then((res) => res.json())
@@ -115,6 +115,7 @@ export default HomeRecommend = ({ navigation }) => {
     <ViewContainer>
       <StyledScrollView
         ref={scrollLocation}
+        bounces={false}
         onScrollEndDrag={showButton}
         stickyHeaderIndices={[0]}
         showsVerticalScrollIndicator={false}

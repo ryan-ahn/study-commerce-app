@@ -1,5 +1,5 @@
 Arguments: 
-  /Users/sh/.nvm/versions/node/v12.19.0/bin/node /usr/local/Cellar/yarn/1.22.10/libexec/bin/yarn.js add @root-reducer
+  /Users/sh/.nvm/versions/node/v12.19.0/bin/node /usr/local/Cellar/yarn/1.22.10/libexec/bin/yarn.js add react-native-table-componen
 
 PATH: 
   /Users/sh/.nvm/versions/node/v12.19.0/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Library/Apple/usr/bin
@@ -14,8 +14,8 @@ Platform:
   darwin x64
 
 Trace: 
-  Error: https://registry.yarnpkg.com/@root-reducer: Request "https://registry.yarnpkg.com/@root-reducer" returned a 405
-      at Request.params.callback [as _callback] (/usr/local/Cellar/yarn/1.22.10/libexec/lib/cli.js:66997:18)
+  Error: https://registry.yarnpkg.com/react-native-table-componen: Not found
+      at Request.params.callback [as _callback] (/usr/local/Cellar/yarn/1.22.10/libexec/lib/cli.js:66988:18)
       at Request.self.callback (/usr/local/Cellar/yarn/1.22.10/libexec/lib/cli.js:140749:22)
       at Request.emit (events.js:314:20)
       at Request.<anonymous> (/usr/local/Cellar/yarn/1.22.10/libexec/lib/cli.js:141721:10)

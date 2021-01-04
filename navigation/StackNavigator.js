@@ -3,8 +3,9 @@ import { View, Image } from 'react-native';
 import { createStackNavigator } from '@react-navigation/stack';
 import BottomTabNavigation from './BottomTabNavigator';
 import ProductDetail from '../screens/ProductDetail';
+import WriteReview from '../screens/WriteReview';
 import Login from '../screens/Login';
-import styled from 'styled-components/native';
+import styled from 'styled-components';
 import { Theme } from '../styles/Theme';
 import { Mixin } from '../styles/Mixin';
 
@@ -46,6 +47,14 @@ export default StackNavigator = () => {
         component={Login}
         options={{
           title: '로그인',
+        }}
+      />
+      <Stack.Screen
+        name='review'
+        component={WriteReview}
+        options={{
+          title: '구매후기',
+          headerShown: false,
         }}
       />
     </Stack.Navigator>

@@ -2,10 +2,10 @@ import 'react-native-gesture-handler';
 import React from 'react';
 import { StatusBar } from 'react-native';
 import { Provider } from 'react-redux';
-import { createStore } from 'redux';
+import { createStore, combineReducers } from 'redux';
 import { NavigationContainer } from '@react-navigation/native';
 import StackNavigator from './navigation/StackNavigator';
-import setProductData from './redux/reducers';
+import setProductData from './redux/setProductData';
 
 const store = createStore(setProductData);
 

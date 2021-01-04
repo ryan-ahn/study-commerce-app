@@ -1,33 +1,28 @@
 import React from 'react';
-import { View, Button, Text } from 'react-native';
-import { connect } from 'react-redux';
+import { View, Image } from 'react-native';
+import { ScrollView } from 'react-native-gesture-handler';
 import styled from 'styled-components';
+import { Mixin } from '../styles/Mixin';
 
-const ProductDescription = (props) => {
+export default ProductDescription = () => {
   return (
     <ViewContainer>
-      <Text>여기 페이지는 사실 안만들거에요</Text>
-      <Button
-        title='hihihi'
-        onPress={() =>
-          props.dispatch({ type: 'setDetailData', payload: { blabla: 0 } })
-        }
-      />
+      <ScrollView
+        bounces={false}
+        showsVerticalScrollIndicator={false}
+        showsHorizontalScrollIndicator={false}>
+        <StyledImage source={{ uri: 'https://ifh.cc/g/bSwXkE.jpg' }} />
+      </ScrollView>
     </ViewContainer>
   );
 };
 
-function aa(state) {
-  return {
-    state: state,
-  };
-}
-
-export default connect(aa)(ProductDescription);
-
 const ViewContainer = styled(View)`
-  top: 200px;
-  height: 200px;
-  width: 200px;
-  border: 1px solid red;
+  ${Mixin.flexSet('center', 'center', 'column')};
+  width: 390px;
+`;
+
+const StyledImage = styled(Image)`
+  width: 390px;
+  height: 1250px;
 `;

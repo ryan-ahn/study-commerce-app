@@ -1,5 +1,5 @@
 import React from 'react';
-import ProductDetailTab from '../components/ProductDetailTab';
+import ProductDetailTab from '../navigation/ProductDetailTab';
 import ProductDetailHeader from '../components/ProductDetailHeader';
 
 export default ProductDetail = ({ navigation }) => {

@@ -5,6 +5,7 @@ import ProductInformation from '../screens/ProductInformation';
 import ProductImage from '../screens/ProductImage';
 import ProductDescription from '../screens/ProductDescription';
 import ProductReview from '../screens/ProductReview';
+import ProductInquire from '../screens/ProductInquire';
 import styled from 'styled-components';
 import { Mixin } from '../styles/Mixin';
 import { Theme } from '../styles/Theme';
@@ -34,7 +35,7 @@ export default ProductDetailTab = () => {
         <TabStack.Screen name='상품이미지' component={ProductImage} />
         <TabStack.Screen name='상세정보' component={ProductDescription} />
         <TabStack.Screen name='구매후기' component={ProductReview} />
-        <TabStack.Screen name='상품문의' component={ProductImage} />
+        <TabStack.Screen name='상품문의' component={ProductInquire} />
       </TabStack.Navigator>
       <ViewContainer>
         <BuyButtonBox>

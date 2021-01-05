@@ -4,6 +4,8 @@ import { createStackNavigator } from '@react-navigation/stack';
 import BottomTabNavigation from './BottomTabNavigator';
 import ProductDetail from '../screens/ProductDetail';
 import WriteReview from '../screens/WriteReview';
+import ReviewDetail from '../screens/ReviewDetail';
+import WriteInquire from '../screens/WriteInquire';
 import Login from '../screens/Login';
 import styled from 'styled-components';
 import { Theme } from '../styles/Theme';
@@ -50,10 +52,26 @@ export default StackNavigator = () => {
         }}
       />
       <Stack.Screen
-        name='review'
+        name='writeReview'
         component={WriteReview}
         options={{
-          title: '구매후기',
+          title: '구매후기작성',
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name='reviewDetail'
+        component={ReviewDetail}
+        options={{
+          title: '리뷰보기',
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name='inquire'
+        component={WriteInquire}
+        options={{
+          title: '문의하기',
           headerShown: false,
         }}
       />

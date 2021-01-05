@@ -21,7 +21,7 @@ const HomeProductFlatList = (props) => {
           props.goToDetail();
           props.dispatch({
             type: 'setDetailData',
-            payload: { productDetailData: item },
+            payload: item,
           });
         }}>
         <DiscountSticky

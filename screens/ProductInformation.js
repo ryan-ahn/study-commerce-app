@@ -24,7 +24,7 @@ const ProductInformation = (props) => {
     price,
     discount,
     typeOfDelivery,
-  } = props.state.productDetailData;
+  } = props.state;
 
   return (
     <ViewContainer>

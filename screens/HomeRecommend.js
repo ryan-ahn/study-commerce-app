@@ -36,7 +36,7 @@ export default HomeRecommend = ({ navigation }) => {
     }
     setLoading(true);
     fetch(
-      'https://gist.githubusercontent.com/Xednicoder/46154f43cac6427be56955d7cdd0a6ab/raw/a07fe88180527fed8a50d557defe9eec96947996/productList.json',
+      'https://gist.githubusercontent.com/Xednicoder/46154f43cac6427be56955d7cdd0a6ab/raw/e5f918f5a20953b6cb6146c39f366b3fe98ad89c/productList.json',
       { method: 'GET' }
     )
       .then((res) => res.json())

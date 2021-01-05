@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   View,
   Image,
@@ -19,9 +19,18 @@ const WriteReview = (props) => {
   const [title, setTitle] = useState('');
   const [bodyText, setBodyText] = useState('');
   const [addImage, setAddImage] = useState([]);
+  const [date, setDate] = useState('');
+
+  useEffect(() => {
+    currentDate();
+  }, []);
 
   const goBack = () => {
     props.navigation.goBack();
+  };
+
+  const currentDate = () => {
+    setDate(new Date().toString());
   };
 
   const addReview = () => {
@@ -29,13 +38,18 @@ const WriteReview = (props) => {
       Alert.alert('타이틀을 입력하세요');
     } else if (bodyText < 10) {
       Alert.alert('내용을 10글자 이상 입력하세요');
-    } else if (!addImage.length) {
-      Alert.alert('이미지를 최소 1개 이상 추가하세요');
     } else {
-      const reviewSet = [title, bodyText, addImage];
+      1;
+      const reviewSet = {
+        _title: title,
+        _bodyText: bodyText,
+        _addImage: addImage,
+        _writer: '안상혁',
+        _date: date,
+      };
       props.dispatch({
-        type: 'setDetailData',
-        payload: { productDetailData: reviewSet },
+        type: 'addReview',
+        payload: reviewSet,
       });
       props.navigation.goBack();
     }
@@ -60,7 +74,7 @@ const WriteReview = (props) => {
       <ProductReviewHeader goBack={goBack} />
       <ViewContainer>
         <ProductNameBox>
-          <ProductName>{props.state.productDetailData.name}</ProductName>
+          <ProductName>{props.state.name}</ProductName>
         </ProductNameBox>
         <Title>
           <StyledText>후기 쓰기</StyledText>
@@ -104,13 +118,12 @@ const WriteReview = (props) => {
         <SubmitButton
           style={{
             backgroundColor:
-              title && bodyText >= 0 && addImage.length ? '#5f0180' : '#f1f1f1',
+              title !== 0 && bodyText.length >= 10 ? '#5f0180' : '#f1f1f1',
           }}
           onPress={addReview}>
           <ButtonText
             style={{
-              color:
-                title && bodyText >= 0 && addImage.length ? 'white' : '#b1b1b1',
+              color: title !== 0 && bodyText.length >= 10 ? 'white' : '#b1b1b1',
             }}>
             등록하기
           </ButtonText>

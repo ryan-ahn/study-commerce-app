@@ -6,7 +6,7 @@ import styled from 'styled-components';
 import { Mixin } from '../styles/Mixin';
 
 const ProductImage = (props) => {
-  const { detailImage } = props.state.productDetailData;
+  const { detailImage } = props.state;
   return (
     <ViewContainer>
       <ScrollView

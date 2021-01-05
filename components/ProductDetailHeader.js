@@ -21,7 +21,7 @@ const ProductDetailHeader = (props) => {
         <StyledTouchableOpacity>
           <AntDesign name='left' size={20} onPress={props.goBack} />
         </StyledTouchableOpacity>
-        <HeaderName>{props.state.productDetailData.name}</HeaderName>
+        <HeaderName>{props.state.name}</HeaderName>
       </ViewContainer>
     </>
   );

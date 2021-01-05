@@ -4,15 +4,23 @@ let productDetailData = {
   name: '',
   descriptin: '',
   image: '',
-  price: 11900,
-  discount: 20,
-  discountPrice: 9520,
+  price: 0,
+  discount: 0,
+  discountPrice: 0,
   recommend: false,
   newProduct: false,
   bestProduct: false,
   tagName: '',
   typeOfDelivery: '',
-  review: [],
+  review: [
+    {
+      _addImage: [],
+      _bodyText: '',
+      _title: '',
+      _writer: '',
+      _date: '',
+    },
+  ],
 };
 
 export default setProductData = (state = productDetailData, action) => {
@@ -22,7 +30,8 @@ export default setProductData = (state = productDetailData, action) => {
     return copyState;
   } else if (action.type === 'addReview') {
     let copyState = { ...state };
-    copyState.review.push(action.payload);
+    let reviewState = [...state.review].concat(action.payload);
+    copyState.review = reviewState;
     return copyState;
   }
 };

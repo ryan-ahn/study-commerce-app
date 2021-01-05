@@ -35,7 +35,7 @@ const HeaderView = styled(View)`
   ${Mixin.flexSet('flex-end', 'flex-start', 'column')};
   width: 390px;
   height: 50px;
-  margin-left: 8px;
+  margin-left: 10px;
   margin-bottom: 10px;
 `;
 
@@ -47,7 +47,7 @@ const HeaderText = styled(Text)`
 
 const EventContainer = styled(View)`
   ${Mixin.flexSet('flex-start', 'center', 'row')};
-  margin-left: 8px;
+  margin-left: 10px;
 `;
 
 const EventImage = styled(Image)`

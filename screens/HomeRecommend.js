@@ -30,12 +30,12 @@ export default HomeRecommend = ({ navigation }) => {
     getRecipeData();
   }, []);
 
-  const getProductData = () => {
+  const getProductData = async () => {
     if (loading) {
       return;
     }
     setLoading(true);
-    fetch(
+    await fetch(
       'https://gist.githubusercontent.com/Xednicoder/46154f43cac6427be56955d7cdd0a6ab/raw/e5f918f5a20953b6cb6146c39f366b3fe98ad89c/productList.json',
       { method: 'GET' }
     )
@@ -50,8 +50,8 @@ export default HomeRecommend = ({ navigation }) => {
     setLoading(false);
   };
 
-  const getSwiperData = () => {
-    fetch(
+  const getSwiperData = async () => {
+    await fetch(
       'https://gist.githubusercontent.com/Xednicoder/8bada8b057954b4c9b8b127c17328fd7/raw/c4b9e38e71615169ba70c07687172f73221d0ae8/slideUrl.json',
       { method: 'GET' }
     )
@@ -61,8 +61,8 @@ export default HomeRecommend = ({ navigation }) => {
       });
   };
 
-  const getRecipeData = () => {
-    fetch(
+  const getRecipeData = async () => {
+    await fetch(
       'https://gist.githubusercontent.com/Xednicoder/f166d981985808017c73e885ae01bef0/raw/17ccb09298588db4e3dfc2376a1b2a27f7cf06b0/recipe.json',
       { method: 'GET' }
     )
@@ -72,8 +72,8 @@ export default HomeRecommend = ({ navigation }) => {
       });
   };
 
-  const getEventData = () => {
-    fetch(
+  const getEventData = async () => {
+    await fetch(
       'https://gist.githubusercontent.com/Xednicoder/58675c056b96fda86286e35604070d04/raw/b70fe7fa06112b74062a5989546887d2342e03b6/event.json',
       { method: 'GET' }
     )
@@ -145,7 +145,7 @@ export default HomeRecommend = ({ navigation }) => {
           goToDetail={goToProductDetail}
         />
         <HomeRecipeFlatList
-          title={'홀리의 레시피'}
+          title={'홀리만의 레시피 공개'}
           data={recipeData}
           offset={offset}
           loading={loading}

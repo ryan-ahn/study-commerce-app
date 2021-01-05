@@ -89,7 +89,7 @@ const HeaderView = styled(View)`
   ${Mixin.flexSet('flex-end', 'flex-start', 'column')};
   width: 100%;
   height: 60px;
-  margin-left: 8px;
+  margin-left: 10px;
   margin-bottom: 10px;
 `;
 
@@ -100,7 +100,7 @@ const HeaderText = styled(Text)`
 `;
 
 const FlatContainer = styled(TouchableOpacity)`
-  margin-left: 8px;
+  margin-left: 10px;
 `;
 
 const DiscountSticky = styled(View)`

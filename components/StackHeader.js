@@ -12,7 +12,7 @@ import { connect } from 'react-redux';
 import { Mixin } from '../styles/Mixin';
 import { Theme } from '../styles/Theme';
 
-const ProductReviewDetailHeader = (props) => {
+const StackHeader = (props) => {
   return (
     <>
       <StatusBar barStyle='dark-content' />
@@ -21,7 +21,7 @@ const ProductReviewDetailHeader = (props) => {
         <StyledTouchableOpacity>
           <AntDesign name='left' size={20} onPress={props.goBack} />
         </StyledTouchableOpacity>
-        <HeaderName>상품 후기 상세</HeaderName>
+        <HeaderName>{props.title}</HeaderName>
       </ViewContainer>
     </>
   );
@@ -33,7 +33,7 @@ function setRedux(state) {
   };
 }
 
-export default connect(setRedux)(ProductReviewDetailHeader);
+export default connect(setRedux)(StackHeader);
 
 const StyledStatusBar = styled(SafeAreaView)`
   background-color: ${Theme.colors.white};
@@ -41,16 +41,13 @@ const StyledStatusBar = styled(SafeAreaView)`
 
 const ViewContainer = styled(View)`
   ${Mixin.flexSet('flex-start', 'center', 'row')}
-  height: 50px;
   background-color: ${Theme.colors.white};
-  border-bottom-width: 0.2px;
-  border-bottom-color: ${Theme.fontColors.discountColor};
+  height: 40px;
 `;
 
 const StyledTouchableOpacity = styled(TouchableOpacity)`
   margin-left: 10px;
 `;
-
 const HeaderName = styled(Text)`
   ${Mixin.flexSet('flex-start', 'center', 'row')}
   color: ${Theme.fontColors.headerColor};

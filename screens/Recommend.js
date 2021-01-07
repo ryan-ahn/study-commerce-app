@@ -13,7 +13,7 @@ import styled from 'styled-components';
 import { Mixin } from '../styles/Mixin';
 import { Theme } from '../styles/Theme';
 
-const Recommend = (props) => {
+function Recommend(props) {
   const [productData, setProductData] = useState([]);
 
   useEffect(() => {
@@ -75,7 +75,7 @@ const Recommend = (props) => {
       />
     </StyledSafeAreaView>
   );
-};
+}
 
 function setRedux(state) {
   return {

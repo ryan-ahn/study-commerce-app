@@ -14,7 +14,7 @@ import styled from 'styled-components';
 import { Mixin } from '../styles/Mixin';
 import { Theme } from '../styles/Theme';
 
-const ProductInformation = (props) => {
+function ProductInformation(props) {
   const [modalVisible, setModalVisible] = useState(false);
   const {
     image,
@@ -155,7 +155,7 @@ const ProductInformation = (props) => {
       </StyledScrollView>
     </ViewContainer>
   );
-};
+}
 
 function setRedux(state) {
   return {
@@ -358,19 +358,4 @@ const SecondImage = styled(Image)`
 const ThirdImage = styled(Image)`
   width: 390px;
   height: 510px;
-`;
-
-const BuyButton = styled(View)`
-  ${Mixin.flexSet('center', 'center', 'row')};
-  width: 370px;
-  height: 50px;
-  top: -60px;
-  background-color: ${Theme.colors.mainColor};
-  border-radius: 7px;
-`;
-
-const BuyButtonText = styled(Text)`
-  color: white;
-  font-size: 16px;
-  font-weight: 600;
 `;

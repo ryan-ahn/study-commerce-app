@@ -1,4 +1,5 @@
 import React from 'react';
+import { Button } from 'react-native';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import HomeRecommend from '../screens/HomeRecommend';
 import NewProduct from '../screens/NewProduct';

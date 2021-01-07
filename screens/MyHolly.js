@@ -31,6 +31,8 @@ export default function MyHolly({ navigation }) {
       });
 
       if (result.type === 'success') {
+        const jsonText = JSON.stringify([{ item: 1 }, { item: 2 }]);
+        await AsyncStorage.setItem('test', jsonText);
         await AsyncStorage.setItem('ACCESS_TOKEN', result.accessToken);
         await AsyncStorage.setItem('USER_NAME', result.user.name);
         await AsyncStorage.setItem('USER_IMAGE', result.user.photoUrl);
@@ -44,6 +46,13 @@ export default function MyHolly({ navigation }) {
     } catch (e) {}
   };
 
+  const textFunc = async () => {
+    const jsonValue = await AsyncStorage.getItem('test');
+    const newJson = jsonValue != null ? JSON.parse(jsonValue) : null;
+    newJson.push({ item: 3 });
+    console.log(newJson);
+  };
+
   const logOut = async () => {
     const keys = ['ACCESS_TOKEN', 'USER_IMAGE', 'USER_NAME'];
     try {
@@ -54,25 +63,16 @@ export default function MyHolly({ navigation }) {
     } catch (e) {}
   };
 
-  const getUserData = async () => {
-    try {
-      const userName = await AsyncStorage.getItem('USER_NAME');
-      const userImage = await AsyncStorage.getItem('USER_IMAGE');
-      const accessToken = await AsyncStorage.getItem('ACCESS_TOKEN');
-      if (accessToken !== null) {
-        setUserName(userName);
-        setUserImage(userImage);
-      }
-    } catch (e) {}
-  };
-
   return (
     <ViewContainer>
       <ScrollView>
         {loginToggle ? (
           <LoginView>
             <UserInfoBox>
-              <UserImage source={{ uri: userImage }} />
+              <UserImageBox>
+                <UserImage source={{ uri: userImage }} />
+              </UserImageBox>
+
               <UserName>{userName}님</UserName>
               <Userpoint>적립금 : 0원</Userpoint>
             </UserInfoBox>
@@ -90,10 +90,8 @@ export default function MyHolly({ navigation }) {
             <Notice>회원 가입하고</Notice>
             <Notice>다양한 혜택을 받아가세요!</Notice>
             <NoticeLink>다양한 혜택을 받아가세요!</NoticeLink>
-            <LoginButton>
-              <ButtonText onPress={signInWithGoogleAsync}>
-                구글 로그인
-              </ButtonText>
+            <LoginButton onPress={signInWithGoogleAsync}>
+              <ButtonText>구글 로그인</ButtonText>
             </LoginButton>
           </LogoutView>
         )}
@@ -115,7 +113,7 @@ export default function MyHolly({ navigation }) {
           ))}
         </NoticeView>
         <AlertView>
-          <MenuList>
+          <MenuList onPress={textFunc}>
             <MenuText>알림 설정</MenuText>
             <AntDesign name='right' size={13} style={{ marginRight: 10 }} />
           </MenuList>
@@ -236,11 +234,16 @@ const UserInfoBox = styled(View)`
   ${Mixin.flexSet('flex-start', 'center', 'row')};
   margin-top: 25px;
 `;
-const UserImage = styled(Image)`
+
+const UserImageBox = styled(View)`
   width: 40px;
   height: 40px;
   border: 1px solid #dbdbdb;
   border-radius: 6px;
+`;
+const UserImage = styled(Image)`
+  width: 100%;
+  height: 100%;
 `;
 
 const UserName = styled(Text)`

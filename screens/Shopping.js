@@ -23,7 +23,7 @@ const ITEM = [
   },
 ];
 
-const Shopping = (props) => {
+function Shopping(props) {
   const [productData, setProductData] = useState([]);
   const [sort, setSort] = useState('sale');
 
@@ -169,7 +169,7 @@ const Shopping = (props) => {
       </StyledScrollView>
     </ViewContainer>
   );
-};
+}
 
 function setRedux(state) {
   return {

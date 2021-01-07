@@ -2,12 +2,12 @@ import React, { useEffect, useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, Alert } from 'react-native';
 import { connect } from 'react-redux';
 import * as MailComposer from 'expo-mail-composer';
-import ProductInquireHeader from '../components/ProductInquireHeader';
+import StackHeader from '../components/StackHeader';
 import styled from 'styled-components';
 import { Mixin } from '../styles/Mixin';
 import { Theme } from '../styles/Theme';
 
-const WriteInquire = (props) => {
+function WriteInquire(props) {
   const [title, setTitle] = useState('');
   const [bodyText, setBodyText] = useState('');
 
@@ -25,7 +25,7 @@ const WriteInquire = (props) => {
 
   return (
     <>
-      <ProductInquireHeader goBack={goBack} />
+      <StackHeader goBack={goBack} title='상품 문의하기' />
       <ViewContainer>
         <ProductNameBox>
           <ProductName>{props.state.name}</ProductName>
@@ -65,7 +65,7 @@ const WriteInquire = (props) => {
       </ViewContainer>
     </>
   );
-};
+}
 
 function setRedux(state) {
   return {

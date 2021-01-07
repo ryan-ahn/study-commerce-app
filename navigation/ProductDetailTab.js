@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, TouchableOpacity } from 'react-native';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import ProductInformation from '../screens/ProductInformation';
 import ProductImage from '../screens/ProductImage';
@@ -12,7 +12,7 @@ import { Theme } from '../styles/Theme';
 
 const TabStack = createMaterialTopTabNavigator();
 
-export default ProductDetailTab = () => {
+export default function ProductDetailTab(props) {
   return (
     <>
       <TabStack.Navigator
@@ -38,13 +38,13 @@ export default ProductDetailTab = () => {
         <TabStack.Screen name='상품문의' component={ProductInquire} />
       </TabStack.Navigator>
       <ViewContainer>
-        <BuyButtonBox>
+        <BuyButtonBox onPress={props.goToSelectProduct}>
           <BuyButtonText>구매하기</BuyButtonText>
         </BuyButtonBox>
       </ViewContainer>
     </>
   );
-};
+}
 
 const ViewContainer = styled(View)`
   ${Mixin.flexSet('center', 'center', 'column')};
@@ -53,7 +53,7 @@ const ViewContainer = styled(View)`
   background-color: white;
 `;
 
-const BuyButtonBox = styled(View)`
+const BuyButtonBox = styled(TouchableOpacity)`
   ${Mixin.flexSet('center', 'center', 'row')};
   width: 370px;
   height: 50px;

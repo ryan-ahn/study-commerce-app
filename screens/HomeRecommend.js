@@ -12,7 +12,7 @@ import { Mixin } from '../styles/Mixin';
 
 const LIMIT = 4;
 
-export default HomeRecommend = ({ navigation }) => {
+export default function HomeRecommend({ navigation }) {
   const [productData, setProductData] = useState([]);
   const [slideData, setSlideData] = useState([]);
   const [eventData, setEventData] = useState([]);
@@ -155,7 +155,7 @@ export default HomeRecommend = ({ navigation }) => {
       </StyledScrollView>
     </ViewContainer>
   );
-};
+}
 
 const ViewContainer = styled(View)`
   ${Mixin.flexSet('center', 'center', 'column')};

@@ -10,12 +10,12 @@ import {
 import Fontisto from 'react-native-vector-icons/Fontisto';
 import { connect } from 'react-redux';
 import * as ImagePicker from 'expo-image-picker';
-import ProductReviewHeader from '../components/ProductReviewHeader';
+import StackHeader from '../components/StackHeader';
 import styled from 'styled-components';
 import { Mixin } from '../styles/Mixin';
 import { Theme } from '../styles/Theme';
 
-const WriteReview = (props) => {
+function WriteReview(props) {
   const [title, setTitle] = useState('');
   const [bodyText, setBodyText] = useState('');
   const [addImage, setAddImage] = useState([]);
@@ -71,7 +71,7 @@ const WriteReview = (props) => {
 
   return (
     <>
-      <ProductReviewHeader goBack={goBack} />
+      <StackHeader goBack={goBack} title='구매 후기 작성' />
       <ViewContainer>
         <ProductNameBox>
           <ProductName>{props.state.name}</ProductName>
@@ -131,7 +131,7 @@ const WriteReview = (props) => {
       </ViewContainer>
     </>
   );
-};
+}
 
 function setRedux(state) {
   return {

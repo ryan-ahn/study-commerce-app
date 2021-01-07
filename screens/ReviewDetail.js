@@ -1,13 +1,13 @@
 import React from 'react';
 import { View, Text, ScrollView, Image, Modal } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import ProductReviewDetailHeader from '../components/ProductReviewDetailHeader';
+import StackHeader from '../components/StackHeader';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 import { Mixin } from '../styles/Mixin';
 import { Theme } from '../styles/Theme';
 
-const ProductReview = (props) => {
+function ProductReview(props) {
   const { _addImage, _title, _bodyText, _date } = props.route.params.target;
   const goBack = () => {
     props.navigation.goBack();
@@ -15,7 +15,7 @@ const ProductReview = (props) => {
 
   return (
     <>
-      <ProductReviewDetailHeader goBack={goBack} />
+      <StackHeader goBack={goBack} title='구매 후기 상세' />
       <ViewContainer>
         <StyledScrollView
           bounces={false}
@@ -53,7 +53,7 @@ const ProductReview = (props) => {
       </ViewContainer>
     </>
   );
-};
+}
 
 function setRedux(state) {
   return {

@@ -4,7 +4,7 @@ import { ScrollView } from 'react-native-gesture-handler';
 import styled from 'styled-components';
 import { Mixin } from '../styles/Mixin';
 
-export default ProductDescription = () => {
+export default function ProductDescription() {
   return (
     <ViewContainer>
       <ScrollView
@@ -15,7 +15,7 @@ export default ProductDescription = () => {
       </ScrollView>
     </ViewContainer>
   );
-};
+}
 
 const ViewContainer = styled(View)`
   ${Mixin.flexSet('center', 'center', 'column')};

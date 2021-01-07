@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import { Mixin } from '../styles/Mixin';
 import { Theme } from '../styles/Theme';
 
-const ProductReview = (props) => {
+function ProductReview(props) {
   const goToWriteReview = () => {
     props.navigation.navigate('writeReview');
   };
@@ -35,7 +35,7 @@ const ProductReview = (props) => {
       ))}
     </ViewContainer>
   );
-};
+}
 
 function setRedux(state) {
   return {

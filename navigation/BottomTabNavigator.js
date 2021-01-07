@@ -12,7 +12,7 @@ import { Theme } from '../styles/Theme';
 
 const Tab = createBottomTabNavigator();
 
-export default BottomTabNavigation = () => {
+export default function BottomTabNavigation() {
   return (
     <Tab.Navigator
       initialRouteName={'홈'}
@@ -121,4 +121,4 @@ export default BottomTabNavigation = () => {
       />
     </Tab.Navigator>
   );
-};
+}

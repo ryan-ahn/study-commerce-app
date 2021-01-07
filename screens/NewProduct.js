@@ -8,7 +8,6 @@ import styled from 'styled-components';
 import { Theme } from '../styles/Theme';
 import { Mixin } from '../styles/Mixin';
 
-const LIMIT = 16;
 const ITEM = [
   {
     label: '신상품순',
@@ -30,57 +29,59 @@ const ITEM = [
 
 const NewProduct = (props) => {
   const [productData, setProductData] = useState([]);
-  const [offset, setOffset] = useState(0);
-  const [loading, setLoading] = useState(false);
-  const [sorting, setSorting] = useState('new');
+  const [sort, setSort] = useState('new');
 
   useEffect(() => {
     getProductData();
   }, []);
 
-  console.log(sorting);
-  useEffect(() => {
-    if (sorting === 'high') {
-      const hightSort = productData.sort(function (a, b) {
-        console.log(hightSort);
-        return a['discountPrice'] > b['discountPrice'];
-      });
-      setProductData(hightSort);
-    } else if (sorting === 'low') {
-    } else if (sorting === 'new') {
-      getProductData();
-    } else if (sorting === 'recommend') {
-      setProductData(
-        productData.sort(function (a, b) {
-          return a === b ? 0 : a ? -1 : 1;
-        })
-      );
-    }
-  }, [sorting]);
-
   const getProductData = async () => {
-    if (loading) {
-      return;
-    }
-    setLoading(true);
     await fetch(
-      'https://gist.githubusercontent.com/Xednicoder/46154f43cac6427be56955d7cdd0a6ab/raw/e5f918f5a20953b6cb6146c39f366b3fe98ad89c/productList.json',
+      'https://gist.githubusercontent.com/Xednicoder/d13cc86344ded2d05f69fd1a209e6dd8/raw/2cba843ac75cf1d3b784204a2f0c67774dd9159b/newProducts.json',
       { method: 'GET' }
     )
       .then((res) => res.json())
-      .then((result) => {
-        setProductData([
-          ...productData,
-          ...result
-            .slice(offset, offset + LIMIT)
-            .filter((product) => product.newProduct === true),
-        ]);
-        setOffset(offset + LIMIT);
-      });
-    setLoading(false);
+      .then((result) => setProductData(result));
   };
 
-  const goToDetail = (e) => {
+  const getProductHighPriceData = async (value) => {
+    console.log(value);
+    if (value === 'new') {
+      await fetch(
+        'https://gist.githubusercontent.com/Xednicoder/d13cc86344ded2d05f69fd1a209e6dd8/raw/2cba843ac75cf1d3b784204a2f0c67774dd9159b/newProducts.json',
+        { method: 'GET' }
+      )
+        .then((res) => res.json())
+        .then((result) => setProductData(result));
+    } else if (value === 'high') {
+      await fetch(
+        'https://gist.githubusercontent.com/Xednicoder/182e4a3119c76addc955e1c697b6a183/raw/9f517bca26127d8ed1ea116962d04e39e2753182/newProductsHigh.json',
+        { method: 'GET' }
+      )
+        .then((res) => res.json())
+        .then((result) => setProductData(result));
+    } else if (value === 'low') {
+      await fetch(
+        'https://gist.githubusercontent.com/Xednicoder/799eceb323e56d4e5dcc123912793596/raw/ef055fc365cb50158a95c31164922df0ec4ac27c/newProductsLow.json',
+        { method: 'GET' }
+      )
+        .then((res) => res.json())
+        .then((result) => setProductData(result));
+    } else {
+      await fetch(
+        'https://gist.githubusercontent.com/Xednicoder/3fb7d54a0a47dc6acf019acd4c5b1400/raw/8ca0ae7d7005e416b21b8672507e2cf9abebdace/newProductsRec.json',
+        { method: 'GET' }
+      )
+        .then((res) => res.json())
+        .then((result) => setProductData(result));
+    }
+  };
+
+  const handleSelect = (value) => {
+    getProductHighPriceData(value);
+  };
+
+  const goToDetail = () => {
     props.navigation.navigate('productDetail');
   };
 
@@ -142,19 +143,20 @@ const NewProduct = (props) => {
           <RNPickerSelect
             style={{
               inputIOS: {
-                fontSize: 11,
+                fontSize: 13,
                 marginTop: 20,
               },
             }}
             placeholder={{
-              label: 'Select a product',
+              label: '정렬필터',
               value: null,
             }}
             items={ITEM}
             onValueChange={(value) => {
-              setSorting(value);
+              handleSelect(value);
+              setSort(value);
             }}
-            value={sorting}
+            value={sort}
           />
           <AntDesign
             name='down'
@@ -191,6 +193,7 @@ export default connect(setRedux)(NewProduct);
 const ViewContainer = styled(View)`
   ${Mixin.flexSet('center', 'center', 'row')};
   width: 100%;
+  height: 100%;
 `;
 
 const StyledScrollView = styled(View)`

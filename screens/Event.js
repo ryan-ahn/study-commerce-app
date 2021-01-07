@@ -1,15 +1,13 @@
 import React from 'react';
-import { StyleSheet, View, Text, Button } from 'react-native';
-import ProductDetail from '../screens/ProductDetail';
+import { StyleSheet, View, Image } from 'react-native';
 
-export default Event = ({ navigation, route }) => {
-  const goToProductDetail = (e) => {
-    navigation.navigate('productDetail');
-  };
+export default Event = () => {
   return (
     <View style={styles.container}>
-      <Text>event</Text>
-      <Button onPress={goToProductDetail} title='제품상세'></Button>
+      <Image
+        source={{ uri: 'https://ifh.cc/g/DWQjqS.jpg' }}
+        style={{ width: 390, height: '100%' }}
+      />
     </View>
   );
 };

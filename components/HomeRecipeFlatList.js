@@ -18,7 +18,7 @@ export default HomeRecipeFlatList = (props) => {
   const [mins, setMins] = useState(0);
   const [secs, setSecs] = useState(0);
   const [eventDate, setEventDate] = useState(
-    moment.duration().add({ days: 0, hours: 0, minutes: 5, seconds: 10 })
+    moment.duration().add({ days: 3, hours: 13, minutes: 30, seconds: 60 })
   );
 
   useEffect(() => {

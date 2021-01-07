@@ -13,13 +13,13 @@ import { Mixin } from '../styles/Mixin';
 import { Theme } from '../styles/Theme';
 
 export default HomeRecipeFlatList = (props) => {
-  const [eventDate, setEventDate] = useState(
-    moment.duration().add({ days: 0, hours: 3, minutes: 40, seconds: 50 })
-  );
   const [days, setDays] = useState(0);
   const [hours, setHours] = useState(0);
   const [mins, setMins] = useState(0);
   const [secs, setSecs] = useState(0);
+  const [eventDate, setEventDate] = useState(
+    moment.duration().add({ days: 0, hours: 0, minutes: 5, seconds: 10 })
+  );
 
   useEffect(() => {
     updateTimer();

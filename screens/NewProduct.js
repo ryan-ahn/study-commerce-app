@@ -1,27 +1,62 @@
 import React, { useEffect, useState } from 'react';
-import {
-  ScrollView,
-  View,
-  TouchableOpacity,
-  Text,
-  Image,
-  FlatList,
-} from 'react-native';
+import { View, TouchableOpacity, Text, Image, FlatList } from 'react-native';
+import RNPickerSelect from 'react-native-picker-select';
+import AntDesign from 'react-native-vector-icons/AntDesign';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 import { Theme } from '../styles/Theme';
 import { Mixin } from '../styles/Mixin';
 
 const LIMIT = 16;
+const ITEM = [
+  {
+    label: '신상품순',
+    value: 'new',
+  },
+  {
+    label: '낮은가격순',
+    value: 'low',
+  },
+  {
+    label: '높은가격순',
+    value: 'high',
+  },
+  {
+    label: '추천순',
+    value: 'recommend',
+  },
+];
 
 const NewProduct = (props) => {
   const [productData, setProductData] = useState([]);
   const [offset, setOffset] = useState(0);
   const [loading, setLoading] = useState(false);
+  const [sorting, setSorting] = useState('new');
 
   useEffect(() => {
     getProductData();
   }, []);
+
+  console.log(sorting);
+  useEffect(() => {
+    if (sorting === 'high') {
+      const hightSort = productData.sort(function (a, b) {
+        console.log(hightSort);
+        return a['discountPrice'] > b['discountPrice'];
+      });
+      setProductData(hightSort);
+    } else if (sorting === 'low') {
+    } else if (sorting === 'new') {
+      getProductData();
+    } else if (sorting === 'recommend') {
+      setProductData(
+        productData.sort(function (a, b) {
+          return a === b ? 0 : a ? -1 : 1;
+        })
+      );
+    }
+  }, [sorting]);
 
   const getProductData = async () => {
     if (loading) {
@@ -36,7 +71,9 @@ const NewProduct = (props) => {
       .then((result) => {
         setProductData([
           ...productData,
-          ...result.slice(offset, offset + LIMIT),
+          ...result
+            .slice(offset, offset + LIMIT)
+            .filter((product) => product.newProduct === true),
         ]);
         setOffset(offset + LIMIT);
       });
@@ -69,24 +106,30 @@ const NewProduct = (props) => {
           </CountBox>
         </DiscountSticky>
         <FlatImage source={{ uri: item.image }} />
+        <IconBox>
+          <Ionicons
+            name='ios-cart-outline'
+            size={25}
+            style={{ color: 'white' }}
+          />
+        </IconBox>
         <FlatText>{item.name}</FlatText>
         <PriceBox>
           {item.discount ? (
             <FlatPrice>
-              {item.discountPrice
-                .toString()
-                .replace(/\B(?=(\d{3})+(?!\d))/g, ',') + '원'}
+              {item.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',') +
+                '원'}
             </FlatPrice>
           ) : null}
           <FlatDiscountPrice>
-            {item.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',') + '원'}
+            {item.discountPrice
+              .toString()
+              .replace(/\B(?=(\d{3})+(?!\d))/g, ',') + '원'}
           </FlatDiscountPrice>
         </PriceBox>
         <TagBox
           style={{ position: 'absolute', opacity: item.tagName ? '1' : '0' }}>
-          <TagText style={{ opacity: item.tagName ? '1' : '0' }}>
-            {item.tagName}
-          </TagText>
+          <TagText>{item.tagName}</TagText>
         </TagBox>
       </FlatContainer>
     );
@@ -96,9 +139,28 @@ const NewProduct = (props) => {
     <ViewContainer>
       <StyledScrollView>
         <HeaderView>
-          <SelectBar>
-            <Text>hihihi</Text>
-          </SelectBar>
+          <RNPickerSelect
+            style={{
+              inputIOS: {
+                fontSize: 11,
+                marginTop: 20,
+              },
+            }}
+            placeholder={{
+              label: 'Select a product',
+              value: null,
+            }}
+            items={ITEM}
+            onValueChange={(value) => {
+              setSorting(value);
+            }}
+            value={sorting}
+          />
+          <AntDesign
+            name='down'
+            size={11}
+            style={{ marginBottom: 8, margin: 3 }}
+          />
         </HeaderView>
         <StyledFlatList
           data={productData}
@@ -140,16 +202,7 @@ const HeaderView = styled(View)`
   width: 100%;
   height: 40px;
   padding-right: 17px;
-`;
-
-const SelectBar = styled(View)`
-  height: 20px;
-`;
-
-const HeaderText = styled(Text)`
-  font-size: 15px;
-  font-weight: 600;
-  color: ${Theme.fontColors.headerColor};
+  font-size: 11px;
 `;
 
 const StyledFlatList = styled(FlatList)`
@@ -190,6 +243,18 @@ const PercentText = styled(Text)`
   color: white;
   font-size: 11px;
 `;
+
+const IconBox = styled(TouchableOpacity)`
+  ${Mixin.flexSet('center', 'center', 'row')};
+  position: absolute;
+  top: 187px;
+  right: 5px;
+  width: 35px;
+  height: 35px;
+  background-color: ${Theme.colors.mainColor};
+  border-radius: 20px;
+  opacity: 0.8;
+`;
 const FlatImage = styled(Image)`
   width: 180px;
   height: 230px;
@@ -205,6 +270,7 @@ const FlatText = styled(Text)`
 const PriceBox = styled(View)`
   ${Mixin.flexSet('flex-start', 'flex-end', 'row')};
 `;
+
 const FlatDiscountPrice = styled(Text)`
   margin-left: 8px;
   color: ${Theme.fontColors.headerColor};

@@ -41,7 +41,6 @@ function Shopping(props) {
   };
 
   const getProductHighPriceData = async (value) => {
-    console.log(value);
     if (value === 'sale') {
       await fetch(
         'https://gist.githubusercontent.com/Xednicoder/1814a123299c8bff1eb57a5bbdeb3726/raw/5ef96fcd4de71ca03594a84896fea822115d8a74/saleProducts.json',

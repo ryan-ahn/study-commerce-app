@@ -9,6 +9,7 @@ import {
 } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 import { Mixin } from '../styles/Mixin';
@@ -26,6 +27,13 @@ function ProductInformation(props) {
     typeOfDelivery,
   } = props.state;
 
+  const clearAll = async () => {
+    try {
+      const jsonValue = JSON.stringify([]);
+      await AsyncStorage.setItem('cart', jsonValue);
+    } catch (e) {}
+  };
+
   return (
     <ViewContainer>
       <StyledScrollView
@@ -41,7 +49,7 @@ function ProductInformation(props) {
               <ProductName>{name}</ProductName>
               <ProductDescription>{description}</ProductDescription>
             </ProductTextBox>
-            <IconBox>
+            <IconBox onPress={clearAll}>
               <Ionicons name='share-social-outline' size={20} />
             </IconBox>
           </FlexRowBox>
@@ -218,7 +226,7 @@ const ProductDescription = styled(Text)`
   font-size: 11px;
 `;
 
-const IconBox = styled(View)`
+const IconBox = styled(TouchableOpacity)`
   ${Mixin.flexSet('center', 'center', 'row')};
   width: 33px;
   height: 33px;

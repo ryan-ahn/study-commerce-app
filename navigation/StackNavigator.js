@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, Image, TouchableOpacity } from 'react-native';
 import { Badge } from 'react-native-elements';
 import { createStackNavigator } from '@react-navigation/stack';
@@ -7,7 +7,6 @@ import ProductDetail from '../screens/ProductDetail';
 import WriteReview from '../screens/WriteReview';
 import ReviewDetail from '../screens/ReviewDetail';
 import WriteInquire from '../screens/WriteInquire';
-import Login from '../screens/Login';
 import Cart from '../screens/Cart';
 import SelectProduct from '../screens/SelectProduct';
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -18,17 +17,17 @@ import { Mixin } from '../styles/Mixin';
 const Stack = createStackNavigator();
 
 export default function StackNavigator() {
-  const [productCount, setProductCount] = useState(null);
+  const [productCount, setProductCount] = useState();
 
-  const getUserData = async () => {
+  useEffect(() => {
+    getMyObject();
+  }, [productCount]);
+
+  const getMyObject = async () => {
     try {
-      const userName = await AsyncStorage.getItem('USER_NAME');
-      const userImage = await AsyncStorage.getItem('USER_IMAGE');
-      const accessToken = await AsyncStorage.getItem('ACCESS_TOKEN');
-      if (accessToken !== null) {
-        setUserName(userName);
-        setUserImage(userImage);
-      }
+      const jsonValue = await AsyncStorage.getItem('cart');
+      const newJsonValue = JSON.parse(jsonValue);
+      setProductCount(newJsonValue);
     } catch (e) {}
   };
 
@@ -79,13 +78,6 @@ export default function StackNavigator() {
         options={{
           title: '제품상세',
           headerShown: false,
-        }}
-      />
-      <Stack.Screen
-        name='login'
-        component={Login}
-        options={{
-          title: '로그인',
         }}
       />
       <Stack.Screen

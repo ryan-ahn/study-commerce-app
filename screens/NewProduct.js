@@ -45,7 +45,6 @@ function NewProduct(props) {
   };
 
   const getProductHighPriceData = async (value) => {
-    console.log(value);
     if (value === 'new') {
       await fetch(
         'https://gist.githubusercontent.com/Xednicoder/d13cc86344ded2d05f69fd1a209e6dd8/raw/2cba843ac75cf1d3b784204a2f0c67774dd9159b/newProducts.json',
@@ -85,6 +84,10 @@ function NewProduct(props) {
     props.navigation.navigate('productDetail');
   };
 
+  const goToSelect = () => {
+    props.navigation.navigate('select');
+  };
+
   const renderItem = ({ item }) => {
     return (
       <FlatContainer
@@ -107,7 +110,14 @@ function NewProduct(props) {
           </CountBox>
         </DiscountSticky>
         <FlatImage source={{ uri: item.image }} />
-        <IconBox>
+        <IconBox
+          onPress={() => {
+            props.dispatch({
+              type: 'setDetailData',
+              payload: item,
+            });
+            goToSelect();
+          }}>
           <Ionicons
             name='ios-cart-outline'
             size={25}

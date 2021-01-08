@@ -20,7 +20,7 @@ function Recommend(props) {
     getProductData();
   }, []);
 
-  const getProductData = async () => {
+  const getProductData = async (props) => {
     await fetch(
       'https://gist.githubusercontent.com/Xednicoder/46154f43cac6427be56955d7cdd0a6ab/raw/e5f918f5a20953b6cb6146c39f366b3fe98ad89c/productList.json',
       { method: 'GET' }
@@ -30,9 +30,21 @@ function Recommend(props) {
         setProductData(result);
       });
   };
+
+  const goToDetail = () => {
+    props.navigation.navigate('productDetail');
+  };
+
   const renderItem = ({ item }) => {
     return (
-      <FlatContainer>
+      <FlatContainer
+        onPress={() => {
+          goToDetail();
+          props.dispatch({
+            type: 'setDetailData',
+            payload: item,
+          });
+        }}>
         <RankingSticky style={{ position: 'absolute' }}>
           <RankNumber>{item.id}</RankNumber>
         </RankingSticky>

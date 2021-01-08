@@ -53,7 +53,6 @@ const BestProduct = (props) => {
   };
 
   const getProductHighPriceData = async (value) => {
-    console.log(value);
     if (value === 'best') {
       await fetch(
         'https://gist.githubusercontent.com/Xednicoder/0cc0e7f9b34121572530a5917a0af569/raw/64e6c1b0205cd6641ad12ad68412c78856a8adda/bestProducts',

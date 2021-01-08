@@ -31,26 +31,18 @@ export default function MyHolly({ navigation }) {
       });
 
       if (result.type === 'success') {
-        const jsonText = JSON.stringify([{ item: 1 }, { item: 2 }]);
-        await AsyncStorage.setItem('test', jsonText);
         await AsyncStorage.setItem('ACCESS_TOKEN', result.accessToken);
         await AsyncStorage.setItem('USER_NAME', result.user.name);
+        setUserName(result.user.name);
         await AsyncStorage.setItem('USER_IMAGE', result.user.photoUrl);
-        await getUserData();
+        setUserImage(result.user.photoUrl);
+        await AsyncStorage.getItem('@key');
         setLoginToggle(true);
-
         navigation.navigate('홈');
       } else {
         return { cancelled: true };
       }
     } catch (e) {}
-  };
-
-  const textFunc = async () => {
-    const jsonValue = await AsyncStorage.getItem('test');
-    const newJson = jsonValue != null ? JSON.parse(jsonValue) : null;
-    newJson.push({ item: 3 });
-    console.log(newJson);
   };
 
   const logOut = async () => {
@@ -113,7 +105,7 @@ export default function MyHolly({ navigation }) {
           ))}
         </NoticeView>
         <AlertView>
-          <MenuList onPress={textFunc}>
+          <MenuList>
             <MenuText>알림 설정</MenuText>
             <AntDesign name='right' size={13} style={{ marginRight: 10 }} />
           </MenuList>

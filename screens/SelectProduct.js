@@ -33,36 +33,30 @@ const ITEM = [
 
 function SelectProduct(props) {
   const [count, setCount] = useState(1);
-  const [modal, setModal] = useState(false);
+  const [modalVisible, setModalVisible] = useState(false);
   const { name, discountPrice, price } = props.state;
 
   const addCart = async () => {
     try {
       const product = { ...props.state, count };
-      const productList = await AsyncStorage.getItem('cartTest');
+      const productList = await AsyncStorage.getItem('cart');
       const newProductList = JSON.parse(productList);
       newProductList.push(product);
-      const jsonValue = JSON.stringify(newProductList);
-      await AsyncStorage.setItem('cartTest', jsonValue);
-    } catch (e) {
-      console.log(e);
-    }
-  };
-
-  const check = async () => {
-    try {
-      const productList = await AsyncStorage.getItem('cartTest');
-      return console.log(productList != null ? JSON.parse(productList) : null);
-    } catch (e) {
-      console.log(e);
-    }
+      const jsonProduct = JSON.stringify(newProductList);
+      await AsyncStorage.setItem('cart', jsonProduct);
+      setModalVisible(true);
+    } catch (e) {}
   };
 
   const goToDetail = () => {
     props.navigation.navigate('productDetail');
+    setModalVisible(false);
   };
 
-  const goToCart = () => {};
+  const goToCart = () => {
+    props.navigation.navigate('cart');
+    setModalVisible(false);
+  };
 
   const goBack = () => {
     props.navigation.goBack();
@@ -129,16 +123,17 @@ function SelectProduct(props) {
               onPress={() => {
                 setModalVisible(!modalVisible);
               }}>
-              <ModalHeader>장바구니에 상품을 담았습니다.</ModalHeader>
-              <ModalBody>
-                동일 품질 상품의 주요 온/오프라인 유통사 가격과 비교하여 컬러가
-                설정한 가격에서 할인된 가격입니다.
-              </ModalBody>
-              <ModalBody>
-                적용된 할인가는 대표 상품의 가격으로 옵션에 따라 할인 혜택이
-                다를 수 있습니다. 할인 혜택은 당사 사정에 따라 변경될 수
-                있습니다.
-              </ModalBody>
+              <ModalHeader>장바구니에 상품을 담았습니다</ModalHeader>
+              <ModalButton>
+                <GoBackButton onPress={goToDetail}>
+                  <BackButtonText>더 구매하기</BackButtonText>
+                </GoBackButton>
+                <GoCartButton>
+                  <CartButtonText onPress={goToCart}>
+                    장바구니로 가기
+                  </CartButtonText>
+                </GoCartButton>
+              </ModalButton>
             </ModalView>
           </CenteredView>
         </Modal>
@@ -241,6 +236,7 @@ const PointText = styled(Text)`
 `;
 
 const Point = styled(Text)``;
+
 const BuyButtonBox = styled(TouchableOpacity)`
   ${Mixin.flexSet('center', 'center', 'row')};
   width: 370px;
@@ -259,11 +255,13 @@ const BuyButtonText = styled(Text)`
 const CenteredView = styled(View)`
   ${Mixin.flexSet('center', 'center', 'column')};
   width: 100%;
-  height: 800px;
+  top: 350px;
 `;
 const ModalView = styled(TouchableOpacity)`
+  ${Mixin.flexSet('center', 'center', 'column')};
+  width: 300px;
   margin: 5px;
-  padding: 10px;
+  padding: 13px;
   background-color: white;
   border-radius: 5px;
   border: 1px solid #999999;
@@ -271,10 +269,44 @@ const ModalView = styled(TouchableOpacity)`
 
 const ModalHeader = styled(Text)`
   color: ${Theme.fontColors.mainColor};
-  font-size: 11px;
+  margin-top: 15px;
+  font-size: 14px;
 `;
 
-const ModalBody = styled(Text)`
+const ModalButton = styled(View)`
+  ${Mixin.flexSet('center', 'center', 'row')};
+  margin-top: 15px;
+`;
+
+const GoBackButton = styled(TouchableOpacity)`
+  ${Mixin.flexSet('center', 'center', 'row')};
+  width: 100px;
+  height: 30px;
+  margin: 5px;
   color: ${Theme.fontColors.descriptionColor};
+  background-color: ${Theme.colors.containerColor};
+  border-radius: 5px;
   font-size: 10px;
+`;
+
+const GoCartButton = styled(TouchableOpacity)`
+  ${Mixin.flexSet('center', 'center', 'row')};
+  width: 100px;
+  height: 30px;
+  margin: 5px;
+  background-color: ${Theme.colors.mainColor};
+  border-radius: 5px;
+  font-size: 10px;
+`;
+
+const CartButtonText = styled(Text)`
+  color: white;
+  font-size: 13px;
+  font-weight: 600;
+`;
+
+const BackButtonText = styled(Text)`
+  color: ${Theme.colors.grayColor};
+  font-size: 13px;
+  font-weight: 600;
 `;

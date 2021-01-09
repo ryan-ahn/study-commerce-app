@@ -80,8 +80,8 @@ function Search(props) {
       <PopularTextBox>
         <PopularText>인기 검색어</PopularText>
       </PopularTextBox>
-      {TEXT.map((ele) => (
-        <TextTable>
+      {TEXT.map((ele, index) => (
+        <TextTable key={index}>
           <SearchText>{ele}</SearchText>
         </TextTable>
       ))}

@@ -48,18 +48,13 @@ function SelectProduct(props) {
     } catch (e) {}
   };
 
-  const goToDetail = () => {
-    props.navigation.navigate('productDetail');
-    setModalVisible(false);
+  const goBack = () => {
+    props.navigation.goBack();
   };
 
   const goToCart = () => {
     props.navigation.navigate('cart');
     setModalVisible(false);
-  };
-
-  const goBack = () => {
-    props.navigation.goBack();
   };
 
   return (
@@ -125,7 +120,7 @@ function SelectProduct(props) {
               }}>
               <ModalHeader>장바구니에 상품을 담았습니다</ModalHeader>
               <ModalButton>
-                <GoBackButton onPress={goToDetail}>
+                <GoBackButton onPress={goBack}>
                   <BackButtonText>더 구매하기</BackButtonText>
                 </GoBackButton>
                 <GoCartButton>

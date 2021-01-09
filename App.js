@@ -6,6 +6,7 @@ import { createStore, combineReducers } from 'redux';
 import { NavigationContainer } from '@react-navigation/native';
 import StackNavigator from './navigation/StackNavigator';
 import setProductData from './redux/setProductData';
+// import setCart from './redux/setCart'
 
 const store = createStore(setProductData);
 

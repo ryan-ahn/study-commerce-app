@@ -211,7 +211,7 @@ export default function Cart({ navigation }) {
                 )
                 .toString()
                 .replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
-              원 장바구니 담기
+              원 결제하기
             </BuyButtonText>
           </BuyButtonBox>
         </StyledScrollView>

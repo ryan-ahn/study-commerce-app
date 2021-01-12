@@ -13,5 +13,5 @@
 
 - Framework: React Native
 - DataBase: FireBase, Async-Storage, Gist
-- Library: redux, React-Navigation, React-native-mail, React-native-swiper, React-native-picker-select... 외 약 30개
+- Library: Redux, React-Navigation, React-native-mail, React-native-swiper, React-native-picker-select... 외 약 30개
 - Desigh: styled-components, react-native-vector-icons

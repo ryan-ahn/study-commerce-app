@@ -17,3 +17,15 @@
 - DataBase: FireBase, Async-Storage, Gist
 - Library: Redux, React-Navigation, React-native-mail, React-native-swiper, React-native-picker... 외 약 30개
 - Desigh: styled-components, react-native-vector-icons
+
+# Function
+
+- 레이아웃 및 디자인 : 카테고리 제외 전체 페이지
+- Google Login 기능(FireBase server 이용)
+- Swiper를 이용한 슬라이드 배너
+- Navigation을 이용한 스택 및 탭 기능
+- React-native-mail 를 이용한 문의하기 기능
+- Redux를 이용한 상품 상세 페이지 스택 기능
+- FlatList를 이용한 상품 리스트 기능
+- Filter, Includes를 이용한 상품 검색 기능
+- AsyncStorage를 이용한 장바구니 기능
